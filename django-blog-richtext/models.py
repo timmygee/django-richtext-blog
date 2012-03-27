@@ -1,0 +1,13 @@
+from django.db import models
+
+class Post(models.Model):
+    """
+    Defines a blog post
+    """
+    title = models.CharField(max_length=255)
+    content = TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.title
