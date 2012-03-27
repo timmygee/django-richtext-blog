@@ -5,6 +5,7 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', include('django-blog-tinymce.urls')),
     # Examples:
     # url(r'^$', 'wholebaked_site.views.home', name='home'),
     # url(r'^wholebaked_site/', include('wholebaked_site.foo.urls')),
