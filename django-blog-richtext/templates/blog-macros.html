@@ -1,0 +1,26 @@
+{% load macros %}
+
+{# Requires that post already be a Post object and that this macro be called in a <ul> tag #}
+{% macro blog_post %}
+<li class="post">
+  <div class="time">{{ post.created }}</div>
+  <div class="title">{{ post.title }}</div>
+  {% if post.has_edits %}
+    <div class="time">Modified {{ post.modified }}</div>
+  {% endif %}
+  <div class="author">{{ post.author }}</div>
+  {% if tags %}
+  <div class="tags">
+    Filed under:
+    <ul>
+      {% for tag in tags %}
+        <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  <div class="post-content">
+    {{ post.content|safe }}
+  </div>
+</li>
+{% endmacro %}

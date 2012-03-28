@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'grappelli',
     'filebrowser',
     'tinymce',
+    'django-blog-richtext'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -169,4 +170,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     )
 
 TINYMCE_COMPRESSOR = True
-
+SLUGS_EDITABLE = False

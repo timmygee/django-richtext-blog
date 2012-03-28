@@ -6,8 +6,7 @@ class PostListView(ListView):
     """
     View functionality for a list of posts
     """
-    model = Post
-    paginate_by = 10
+    # Define paginate_by at the url level. See urls.py
     context_object_name = 'post_list'
+    queryset = Post.objects.all.order_by('-created')
 
-    
