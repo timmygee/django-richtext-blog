@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from django-blog-richtext.models import Post
+from models import Post
 
 class PostAdmin(admin.ModelAdmin):
     search_fields = ('title',)

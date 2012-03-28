@@ -1,14 +1,15 @@
 #!../venv/bin/python
 from django.core.management import setup_environ
-from dfm_site import settings
+from wholebaked_site import settings
 
 setup_environ(settings)
 from django.db import connection, transaction
 cursor = connection.cursor()
 
-# Site
 from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
 
+# Site
 site = Site.objects.get(id=1)
 site.domain = 'kaihatsu'
 site.name = 'Test Site'

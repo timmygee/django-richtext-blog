@@ -6,12 +6,12 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     # Examples:
     # url(r'^$', 'wholebaked_site.views.home', name='home'),
     # url(r'^wholebaked_site/', include('wholebaked_site.foo.urls')),
 
+    url(r'^admin/filebrowser/', include(site.urls)),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
