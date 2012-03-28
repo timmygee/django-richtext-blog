@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}style.css" />
+    {% block javascript %}
+    {% endblock %}
+
+    {% block css %}
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="{{ STATIC_URL }}ie7fixes.css" />
+      <![endif]-->
+    {% endblock %}
+
+    {% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="{{ SITE_NAME }} rss feed" href="{{ BLOG_SETTINGS.rss_url }}">
+    {% endblock %}
+  </head>
+
+  <body>
+    <div id="site-wrapper">
+      <div id="header">
+	{% block header %}
+	{% endblock %}
+      </div>
+
+      <table id="main">
+	<tr>
+	  <!-- left sidebar -->
+	  <td id="left-sidebar">
+	    {% block left-sidebar-content %}
+	      <div class="sidebar-items">
+
+		<div class="sidebar-item">
+		  <div class="sidebar-item-header">
+		  </div>
+		  <div class="sidebar-item-content">
+		  </div>
+		</div>
+	      </div>
+	    {% endblock %}
+	  </td>
+
+	  <!-- main content area -->
+	  <td id="content-wrapper">
+	    {% if messages %}
+	      <ul class="messages">
+		{% for message in messages %}
+		  <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+		    {{ message }}
+		  </li>
+		{% endfor %}
+	      </ul>
+	    {% endif %}
+	    {% block content %}
+	      Content placeholder
+	    {% endblock %}
+	  </td>
+
+	  <!-- right sidebar -->
+	  {% block right-sidebar %}
+	    <td id="right-sidebar">
+	      {% block right-sidebar-content %}
+		<div class="sidebar-items">
+		  <div class="sidebar-item">
+		    <div class="sidebar-item-header">
+		    </div>
+		    <div class="sidebar-item-content">
+		    </div>
+		  </div>
+		</div>
+	      {% endblock %}
+	    </td>
+	  {% endblock %}
+	</tr>
+      </table>
+
+      <!-- footer -->
+      <div id="footer">
+	{% block footer-content %}
+	  <table>
+	    <tr>
+	      <td id="footer-left">
+	      </td>
+	      <td id="footer-center">
+	      </td>
+	      <td id="footer-right">
+	      </td>
+	    </tr>
+	  </table>
+	{% endblock %}
+      </div>
+    </div>	
+  </body>
+</html>

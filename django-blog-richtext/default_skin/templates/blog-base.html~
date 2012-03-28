@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>DJ's Wholesale Fruit Market and Deli &mdash; {% block title %}DFM base template{% endblock %}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}style.css" />
+    {% block javascripts %}
+    {% endblock %}
+
+    {% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} main rss feed" href="{{ BLOG_SETTINGS.rss_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} all entries feed" href="/feeds/all/">
+    <link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} all posts feed" href="/feeds/latest/">
+    {% if category %}<link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} - {{ category }} posts" href="/feeds/categories/{{ category.title|lower }}">{% endif %}
+    {% endblock %}
+
+    {% block css %}
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="{{ STATIC_URL }}ie7fixes.css" />
+      <![endif]-->
+    {% endblock %}
+  </head>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}{{ BLOG_SETTINGS.site_name }}{% endblock %}</title>
+
+    {% block meta %}
+    <meta name="keywords" content="{{ BLOG_SETTINGS.meta_keywords }}">
+    <meta name="description" content="{{ BLOG_SETTINGS.meta_description }}">
+    <meta name="author" content="{{ BLOG_SETTINGS.author_name }}">
+    {% endblock %}
+
+    <meta name="copyright" content="{{ BLOG_SETTINGS.copyright }}" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/brackets.ico" type="image/x-icon"/>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/960.css" type="text/css" media="all" charset="utf-8">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/prettify.css" type="text/css" media="all" charset="utf-8">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pygments.css" type="text/css" media="all" charset="utf-8">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css" type="text/css" media="all" charset="utf-8">
+    <!-- between concepts -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/themes/betweenconcepts.css" type="text/css" media="all" charset="utf-8">
+    <style type="text/css">#logo a {background-image: url('{{ STATIC_URL }}img/logo.png');}</style>
+    {% endcompress %}
+
+    <!--[if IE 6]>
+    <script src="{{ STATIC_URL }}js/DD_belatedPNG_0.0.7a-min.js"></script>
+    <script>
+      DD_belatedPNG.fix('#bleeder, .logo');
+    </script>
+    <style>
+      #bleeder{ display: none;}
+      #form-search{ width: auto; display: block; float: right; clear: both;}
+      .navbar-one{ float: right; clear: both;}
+    </style>
+    <![endif]-->
+
+    {% disqus_dev %}
+    {% block extra_head %}{% endblock %}
+  </head>
+
+  <body>
+    <div id="main-wrapper">
+      <div id="header">
+	{% block header-content %}
+	  <a href="/" id="header-logo"><img src="{{ STATIC_URL }}images/dfm_logo.png" /></a>
+	  <div id="header-toplinks">
+	    <ul>
+	      <li>
+		<a href="/orders/trolley/" class="toplink-image"><img src="{{ STATIC_URL }}images/dfm_cart.png" /></a>
+		<a href="/orders/trolley" class="toplink-text">Shopping Trolley</a>
+	      </li>
+	      <li>
+		<a href="/customers/my-account/" class="toplink-image"><img src="{{ STATIC_URL }}images/dfm_account.png" /></a>
+		<a href="/customers/my-account/" class="toplink-text">
+		  My Account {% if user.is_authenticated %}({{ user.first_name }} {{ user.last_name }}){% endif %}
+		</a>
+	      </li>
+	      <li>
+		{% if user.is_authenticated %}
+		  <a href="/accounts/logout/" class="toplink-text">Log out</a>
+		{% endif %}
+	      </li>
+	    </ul>
+	  </div>
+	  <div id="header-phone">
+	    <img src="{{ STATIC_URL }}images/dfm_phone.png" />
+	  </div>
+	  <div id="header-topnav">
+	    <ul>
+	      <li id="header-topnav-logo-text">
+		<a href="/"><img src="{{ STATIC_URL }}images/dfm_logo_title.png" /></a>
+	      </li>
+	      <!-- topnav links -->
+	      {% block topnav-links %}
+		{% get_pages '/' as root_pages %}
+
+		{% for page in root_pages %}
+		  <li>
+		    <a href="{{ page.url }}" class="{% if page.url == request.path %}active{% endif %}">{{ page.title }}</a>
+		  </li>
+
+		  {% if not forloop.last %}
+		    <li>|</li>
+		  {% endif %}
+		{% endfor %}
+
+		{% get_pages '/about/contact/' as contact_pages %}
+		<li>|</li>
+		{% for page in contact_pages %}
+		  <li>
+		    <a href="{{ page.url }}" class="{% if page.url == request.path %}active{% endif %}">{{ page.title }}</a>
+		  </li>   
+		{% endfor %}
+	      {% endblock %}
+	    </ul>
+	  </div>
+	{% endblock %}
+      </div>
+
+      <table id="main">
+	<tr>
+	  <!-- left sidebar -->
+	  <td id="left-sidebar">
+	    {% block left-sidebar-content %}
+	      <div class="sidebar-items">
+
+		<div class="sidebar-item sidebar-nav-item">
+		  <div class="sidebar-item-header">
+		    About Us
+		  </div>
+		  <div class="sidebar-item-content">
+		    {% get_pages '/about/' as about_pages %}
+		    <ul>
+		      {% for page in about_pages %}
+			<li>
+			  <a href="{{ page.url }}" class="{% if page.url == request.path %}active{% endif %}">- {{ page.title }}</a>
+			</li>
+		      {% endfor %}
+		    </ul>
+		  </div>
+		</div>
+
+		<div class="sidebar-item sidebar-nav-item">
+		  <div class="sidebar-item-header">
+		    <a href="/products/">Products</a>
+		  </div>
+		  <div class="sidebar-item-content">
+		    {% stock_item_categories as categories %}
+		    <ul>
+		      {% for category in categories %}
+			<li>
+			  <a href="{{ category.get_absolute_url }}" class="{% if category.get_absolute_url == request.path %}active{% endif %}" title="{{ category.description }}">- {{ category.name }}</a>
+			</li>
+		      {% endfor %}
+		    </ul>
+		  </div>
+		</div>
+
+	      </div>
+	    {% endblock %}
+	  </td>
+
+	  <!-- main content area -->
+	  <td id="content-wrapper">
+	    {% if messages %}
+	      <ul class="messages">
+		{% for message in messages %}
+		  <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+		    {{ message }}
+		  </li>
+		{% endfor %}
+	      </ul>
+	    {% endif %}
+	    {% block content %}
+	      Content placeholder
+	    {% endblock %}
+	  </td>
+
+	  <!-- right sidebar -->
+	  {% block right-sidebar %}
+	    <td id="right-sidebar">
+	      {% block right-sidebar-content %}
+		<div class="sidebar-items">
+		  {% if cart %}
+		    {% if cart.items %}
+		      <div class="sidebar-item sidebar-cart-item">
+			<div class="sidebar-item-header">
+			  <a href="/orders/trolley/">Shopping Trolley</a>
+			</div>
+			<div class="sidebar-item-content">
+			  <div class="above-list">
+			    <div class="icon-box">
+			      <a href="/orders/trolley/">&nbsp;</a>
+			    </div>
+			    <p>
+			      <a href="/orders/trolley/">Click here</a> to view all trolley items and to make changes
+			    </p>
+			  </div>
+			  <table>
+			    <tr>
+			      <td colspan="2">
+				<p class="bold">Trolley Contents:</p>
+				<hr />
+			      </td>
+			    </tr>
+			    {% for item in cart.items %}
+			      <tr>
+				<td>
+				  <p>
+				    {{ item.quantity }}
+				    {% if item.stock_item.is_pay_by_weight %}kg of{% else %}x{% endif %}
+				    <span>{{ item.stock_item.name }}</span>
+				  </p>
+				</td>
+				<td class="right-align">
+				  <p class="bold align-right">${{ item.get_total }}</p>
+				</td>
+			      </tr>
+			    {% endfor %}
+			    <tr class="last">
+			      <td colspan="2">
+				<hr />
+				<p class="right-align bold">Subtotal: <span>${{ cart.get_total }}</span></p>
+			      </td>
+			    </tr>
+			  </table>
+			  <form method="POST" action="/orders/trolley/">
+			    <input type="submit" name="checkout" value="Go to Checkout" />
+			    {% csrf_token %}
+			  </form>
+			</div>
+		      </div>
+		    {% endif %}
+		  {% endif %}
+	      
+		{% if featured_products %}
+		  <div class="sidebar-item sidebar-featured-product-item">
+		    <div class="sidebar-item-header">
+		      Featured Product
+		    </div>
+		    <div class="sidebar-item-content">
+		      <div class="featured-product">
+			<h3>{{ featured_products.name }}</h4>
+			<p>{{ featured_products.desc }}</p>
+		      </div>
+		      <div class="featured-products-cycle">
+			{% for item in featured_products.products %}
+			  {% usemacro sidebar_stock_item %}
+		        {% endfor %}
+		      </div>
+		    </div>
+		  </div>
+		{% endif %}
+
+		  <div class="sidebar-item sidebar-specials-item">
+		    <div class="sidebar-item-header">
+		      <a href="/weekly-specials/">Specials</a>
+		    </div>
+		    <div class="sidebar-item-content">
+		      <div class="above-list">
+			<p>
+			  <a href="/weekly-specials/">Click here</a> to view all items on special
+			</p>
+		      </div>
+		      <div id="sidebar-specials-cycle">
+			{% stock_items_on_special as items %}
+			{% for item in items|random_n:5 %}
+			  {% usemacro sidebar_stock_item %}
+		        {% endfor %}
+		      </div>
+		    </div>
+		  </div>
+
+		</div>
+	      {% endblock %}
+	    </td>
+	  {% endblock %}
+	</tr>
+      </table>
+
+      <!-- footer -->
+      <div id="footer">
+	{% block footer-content %}
+	  <table>
+	    <tr>
+	      <td id="footer-left">
+		Copyright &copy; {% now "Y" %} DJ's Wholesale Fruit Market
+	      </td>
+	      <td id="footer-center">
+		{% get_pages '/legal/privacy/' as privacy_pages %}
+		{% for page in privacy_pages %}
+		  <a href="{{ page.url }}" class="{% if page.url == request.path %}active{% endif %}">{{ page.title }}</a>
+		{% endfor %}
+		|
+		{% get_pages '/about/terms-conditions/' as terms_pages %}
+		{% for page in terms_pages %}
+		  <a href="{{ page.url }}" class="{% if page.url == request.path %}active{% endif %}">{{ page.title }}</a>
+		{% endfor %}
+	      </td>
+	      <td id="footer-right">
+		eCommerce Solution by <a href="mailto:tim@wholebaked.com.au">Whole Baked Ideas</a>
+	      </td>
+	    </tr>
+	  </table>
+	{% endblock %}
+      </div>
+    </div>	
+  </body>
+</html>
