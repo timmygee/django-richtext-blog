@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView
 
-from django-blog-richtext.models import Post
+from django_blog_richtext.models import Post
 
 class PostListView(ListView):
     """

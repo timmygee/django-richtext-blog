@@ -127,7 +127,7 @@ INSTALLED_APPS = (
     'grappelli',
     'filebrowser',
     'tinymce',
-    'django-blog-richtext'
+    'django_blog_richtext'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -168,8 +168,21 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.csrf',
     'django.contrib.messages.context_processors.messages',
     # Custom context processors
-    'django-blog-richtext.context_processors.site'
+    'django_blog_richtext.context_processors.site'
     )
 
+# TinyMCE settings
 TINYMCE_COMPRESSOR = True
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'relative_urls': False
+    }
+
+# Filebrowser settings
+FILEBROWSER_DIRECTORY = 'uploads/'
+# Below 2 lines needed until filebrowser is django 1.4 compatible
+FILEBROWSER_URL_TINYMCE = STATIC_URL + 'tinymce/jscripts/tiny_mce/'
+FILEBROWSER_PATH_TINYMCE = FILEBROWSER_URL_TINYMCE
+
+# django_blog_richtext settings
 SLUGS_EDITABLE = False
