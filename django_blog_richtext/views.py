@@ -8,5 +8,11 @@ class PostListView(ListView):
     """
     # Define paginate_by at the url level. See urls.py
     context_object_name = 'post_list'
-    queryset = Post.objects.all.order_by('-created')
+    queryset = Post.objects.all().order_by('-created')
 
+class PostView(DetailView):
+    """
+    View functionality for a single post
+    """
+    model = Post
+    context_object_name = 'post'

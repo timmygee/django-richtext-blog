@@ -1,10 +1,10 @@
 {% load macros %}
 
-{# Requires that post already be a Post object and that this macro be called in a <ul> tag #}
+{# blog_post macro. Requires that post already be a Post object and that this macro be called in a <ul> tag #}
 {% macro blog_post %}
 <li class="post">
   <div class="time">{{ post.created }}</div>
-  <div class="title">{{ post.title }}</div>
+  <div class="title"><a href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a></div>
   {% if post.has_edits %}
     <div class="time">Modified {{ post.modified }}</div>
   {% endif %}
@@ -23,4 +23,29 @@
     {{ post.content|safe }}
   </div>
 </li>
+{% endmacro %}
+
+{# blog_pagination macro. Requires that it be used on a ListView template, that or standard pagination context objects are available. post_list should also be defined as the queryset/list of objects to display on the page #}
+{% macro blog_pagination %}
+{% if is_paginated %}
+  <div class="pagination">
+    <span class="page-links">
+    {% if page_obj.has_previous %}
+      <a href="{{ post_list.get_absolute_url }}?page={{ page_obj.previous_page_number }}">&larr;</a>
+    {% endif %}
+    <span class="page-numbers">
+      <ul>
+	{% for page_num in paginator.page_range %}
+	  <li>
+	    <a class="{% if page_num == page_obj.number %}active{% else %}inactive{% endif %}" href="{{ post_list.get_absolute_url }}?page={{ page_num }}">{{ page_num }}</a>
+	  </li>
+	{% endfor %}
+      </ul>
+    </span>
+    {% if page_obj.has_next %}
+      <a href="{{ post_list.get_absolute_url }}?page={{ page_obj.next_page_number }}">&rarr;</a>
+    {% endif %}
+    </span>
+  </div>
+{% endif %}
 {% endmacro %}

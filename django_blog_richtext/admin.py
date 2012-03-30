@@ -6,6 +6,8 @@ from forms import PostFormAdmin
 class PostAdmin(admin.ModelAdmin):
     form = PostFormAdmin
     search_fields = ('title',)
+    list_display = ('title', 'author', 'created', 'modified')
+    list_filter = ('author__first_name',)
 
     def save_model(self, request, obj, form, change):
         """

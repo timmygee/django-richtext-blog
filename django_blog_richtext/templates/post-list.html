@@ -1,13 +1,15 @@
+{% extends 'blog-base.html' %}
 {% load macros %}
 {% loadmacros blog-macros.html %}
-{% extends 'blog-base.html' %}
 
 {% block content %}
-<div id="content post-list">
+{% usemacro blog_pagination %}
+<div id="posts">
   <ul>
     {% for post in post_list %}
       {% usemacro blog_post %}
     {% endfor %}
   </ul>
 </div>
+{% usemacro blog_pagination %}
 {% endblock %}

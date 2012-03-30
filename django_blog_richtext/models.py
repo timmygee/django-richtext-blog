@@ -10,7 +10,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', max_length=150,
         editable=settings.SLUGS_EDITABLE, unique=True, blank=True,
-        help_text='Leave this field blank to auto-generate slug from name')
+        help_text='Leave this field blank to auto-generate slug from title')
     author = models.ForeignKey(User, related_name='post_author', editable=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -24,4 +24,12 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('post', (), {
+            'month': self.created.strftime('%m'),
+            'year': self.created.year,
+            'slug': self.slug
+            })
 

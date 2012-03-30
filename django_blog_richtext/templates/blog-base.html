@@ -53,9 +53,11 @@
 		{% endfor %}
 	      </ul>
 	    {% endif %}
-	    {% block content %}
-	      Content placeholder
-	    {% endblock %}
+	    <div id="content">
+	      {% block content %}
+		Content placeholder
+	      {% endblock %}
+	    </div>
 	  </td>
 
 	  <!-- right sidebar -->

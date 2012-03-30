@@ -167,8 +167,25 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # TinyMCE settings
 TINYMCE_COMPRESSOR = True
 TINYMCE_DEFAULT_CONFIG = {
+    'width': '760',
+    'height': '480',
+    'plugins': 'fullscreen,media,preview,paste',
     'theme': 'advanced',
-    'relative_urls': False
+    'relative_urls': False,
+    'theme_advanced_toolbar_location': 'top',
+    'theme_advanced_toolbar_align': 'left',
+    'theme_advanced_buttons1': 'bold,italic,underline,strikethrough,|,' \
+        'justifyleft,justifycenter,justifyright,justifyfull,|,forecolor,' \
+        'formatselect,sub,sup,removeformat,charmap,|,bullist,numlist,|,' \
+        'indent,outdent,|,link,unlink,anchor,image,media,|,visualaid,code,' \
+        'preview,fullscreen',
+    'theme_advanced_buttons2': 'undo,redo,|,cut,copy,paste,pasteword,pastetext,' \
+        'selectall,|,cleanup,help,|,hr',
+    'theme_advanced_buttons3': '',
+    'theme_advanced_blockformats': 'p,code,address,blockquote,h1,h2,h3,h4,h5,h6',
+    'plugin_preview_width' : '800',
+    'plugin_preview_height' : '600',
+    'paste_auto_cleanup_on_paste': 'true',
     }
 
 # Filebrowser settings
