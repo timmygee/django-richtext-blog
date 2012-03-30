@@ -8,13 +8,13 @@ class Post(models.Model):
     Defines a blog post
     """
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name', max_length=150,
-        editable=settings.SLUGS_EDITABLE, unique=True,
+    slug = AutoSlugField(populate_from='title', max_length=150,
+        editable=settings.SLUGS_EDITABLE, unique=True, blank=True,
         help_text='Leave this field blank to auto-generate slug from name')
-    author = models.ForeignKey(User, related_name='post_author')
-    content = models.TextField(blank=True)
+    author = models.ForeignKey(User, related_name='post_author', editable=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    content = models.TextField(blank=True)
 
     def has_edits(self):
         """

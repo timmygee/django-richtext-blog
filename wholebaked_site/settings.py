@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
+    'grappelli.dashboard',
     'grappelli',
     'filebrowser',
     # Uncomment the next line to enable the admin:
@@ -158,6 +159,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.csrf',
     'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
     # Custom context processors
     'django_blog_richtext.context_processors.site'
     )
@@ -172,5 +174,9 @@ TINYMCE_DEFAULT_CONFIG = {
 # Filebrowser settings
 FILEBROWSER_DIRECTORY = 'uploads/'
 
+# Grappelli settings
+GRAPPELLI_INDEX_DASHBOARD = \
+    'django_blog_richtext.custom_dashboard.CustomIndexDashboard'
+
 # django_blog_richtext settings
-SLUGS_EDITABLE = False
+SLUGS_EDITABLE = True
