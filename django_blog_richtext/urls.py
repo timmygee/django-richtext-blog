@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^captcha/', include('captcha.urls')),
     # django_blog_richtext definitions
     url(r'^posts/$', PostListView.as_view(
             paginate_by=2,

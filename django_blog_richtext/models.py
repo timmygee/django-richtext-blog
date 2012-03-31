@@ -33,3 +33,8 @@ class Post(models.Model):
             'slug': self.slug
             })
 
+class Comment(models.Model):
+    """
+    Defines comments that can be stored against individual posts
+    """
+    name = models.CharField
