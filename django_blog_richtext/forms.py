@@ -26,10 +26,10 @@ class CommentForm(BlogModelFormBase):
     """
     Form for the creation of a new comment
     """
-    name = forms.CharField()
-    email = forms.EmailField(required=True)
-    comment = forms.CharField(required=True)
-    verification = CaptchaField(required=True,
+    name = forms.CharField(required=False)
+    email = forms.EmailField()
+    comment = forms.CharField()
+    verification = CaptchaField(
         help_text='Please type the letters in the image')
 
     class Meta:

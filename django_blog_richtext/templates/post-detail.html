@@ -1,0 +1,30 @@
+{% extends 'blog-base.html' %}
+{% load macros %}
+{% loadmacros blog-macros.html %}
+
+{% block content %}
+<div id="posts">
+  <ul>
+    {% usemacro blog_post %}
+  </ul>
+</div>
+<div id="comments">
+  <ul>
+    {% for comment in comments %}
+    <li class="comment">
+      <span class="name">{% if comment.name %}{{ comment.name }}{% else %}Anonymous{% endif %}</span>
+      <span class="created">{{ comment.created }}</span>
+      <div class="message">{{ comment.comment }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  <form method="POST" action="">
+    {% if form.errors %}
+      <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
+    {% endif %}
+    {{ form.as_table }}
+    <input type="submit" value="Submit Comment" />
+    {% csrf_token %}
+  </form>
+</div>
+{% endblock %}

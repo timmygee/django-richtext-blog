@@ -16,7 +16,8 @@ class PostListView(list.ListView):
 
 class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
     """
-    View functionality for a single post
+    View for a single post
+    Combintes the functionality of ProcessFormView and DetailView
     """
     model = Post
     context_object_name = 'post'
@@ -33,19 +34,17 @@ class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
 
     def get_context_data(self, **kwargs):
         """
-        Define required class attributed for both DetailView and ProcessFormView
-        then pass them into the context
+        Define required class attribute for DetailView functionality then pass
+        it into the context along with any comments for the post
         """
-        # From edit.ProcessFormView.get
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-
-        # From detail.DetailView.get
+        # From detail.DetailView.get (called just before get_context_data, so
+        # we need the line here)
         self.object = self.get_object()
 
+        # Call the parent get_context_data (in this case it will be the one
+        # defined in exit.ProcessFormView)
         context = super(PostView, self).get_context_data(**kwargs)
-        context['comments'] = Comment.objects.filter(post=self.object)
-        context['form'] = form
         context['object'] = self.object
+        context['comments'] = Comment.objects.filter(post=self.object)
         return context
 
