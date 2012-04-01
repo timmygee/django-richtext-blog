@@ -37,4 +37,12 @@ class Comment(models.Model):
     """
     Defines comments that can be stored against individual posts
     """
-    name = models.CharField
+    post = models.ForeignKey(Post, related_name='comment_post')
+    name = models.CharField(max_length=150, blank=True)
+    auth_user = models.ForeignKey(User, related_name='comment_user',
+        editable=False, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(max_length=150,
+        help_text='Your email address is for authentication reasons only and '
+            'will not be visible on this site')
+    comment = models.TextField(help_text='Enter your comment here')

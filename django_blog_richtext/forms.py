@@ -2,8 +2,9 @@ from django import forms
 from django.contrib.auth.models import User
 
 from tinymce.widgets import TinyMCE
+from captcha.fields import CaptchaField
 
-from models import Post
+from models import Post, Comment
 
 class PostFormAdmin(forms.ModelForm):
     """
@@ -14,3 +15,22 @@ class PostFormAdmin(forms.ModelForm):
     class Meta:
         model = Post
 
+class BlogModelFormBase(forms.ModelForm):
+    """
+    Define some defaults
+    """
+    error_css_class = 'error'
+    required_css_class = 'required'
+    
+class CommentForm(BlogModelFormBase):
+    """
+    Form for the creation of a new comment
+    """
+    name = forms.CharField()
+    email = forms.EmailField(required=True)
+    comment = forms.CharField(required=True)
+    verification = CaptchaField(required=True,
+        help_text='Please type the letters in the image')
+
+    class Meta:
+        model = Comment

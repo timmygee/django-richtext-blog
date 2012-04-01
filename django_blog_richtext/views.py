@@ -2,6 +2,8 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 
 from django_blog_richtext.models import Post, Comment
+from django_blog_richtext.forms import CommentForm
+
 
 class PostListView(ListView):
     """
@@ -17,10 +19,13 @@ class PostView(DetailView, FormMixin):
     """
     model = Post
     context_object_name = 'post'
+    form_class = CommentForm
 
-    def get_context_data(**kw):
+    def get_context_data(self, **kw):
         """
         Add to context the queryset for assiciated comments
         """
         context = super(DetailView, self).get_context_data(**kw)
-        context['comments'] = Comment.
+        context['comments'] = Comment.objects.filter(post=self.object)
+        return context
+
