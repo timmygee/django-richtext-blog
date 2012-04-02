@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^captcha/', include('captcha.urls')),
     # django_blog_richtext definitions
     url(r'^posts/$', PostListView.as_view(
-            paginate_by=2,
+            paginate_by=1,
             template_name='post-list.html'
         )),
     url(r'^(?P<year>[\d]{4})/(?P<month>[\d]{2})/(?P<slug>[-\w]+)/$',

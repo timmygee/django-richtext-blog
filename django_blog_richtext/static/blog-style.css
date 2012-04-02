@@ -1,0 +1,44 @@
+/* main stylesheet */
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+#site-wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#content {
+    width: 800px;
+    overflow: hidden;
+}    
+
+/* pagination styles */
+
+.pagination {
+    text-align: center;
+}
+
+.page-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-links ul li {
+    display: inline;
+}
+
+/* post styles */
+
+#posts ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

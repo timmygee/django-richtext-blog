@@ -30,21 +30,23 @@
 {% if is_paginated %}
   <div class="pagination">
     <span class="page-links">
-    {% if page_obj.has_previous %}
-      <a href="{{ post_list.get_absolute_url }}?page={{ page_obj.previous_page_number }}">&larr;</a>
-    {% endif %}
-    <span class="page-numbers">
       <ul>
+	{% if page_obj.has_previous %}
+	  <li>
+	    <a href="{{ post_list.get_absolute_url }}?page={{ page_obj.previous_page_number }}">&larr;</a>
+	  </li>
+	{% endif %}
 	{% for page_num in paginator.page_range %}
 	  <li>
 	    <a class="{% if page_num == page_obj.number %}active{% else %}inactive{% endif %}" href="{{ post_list.get_absolute_url }}?page={{ page_num }}">{{ page_num }}</a>
 	  </li>
 	{% endfor %}
+	{% if page_obj.has_next %}
+	  <li>
+	    <a href="{{ post_list.get_absolute_url }}?page={{ page_obj.next_page_number }}">&rarr;</a>
+	  </li>
+	{% endif %}
       </ul>
-    </span>
-    {% if page_obj.has_next %}
-      <a href="{{ post_list.get_absolute_url }}?page={{ page_obj.next_page_number }}">&rarr;</a>
-    {% endif %}
     </span>
   </div>
 {% endif %}

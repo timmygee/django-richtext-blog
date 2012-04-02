@@ -34,3 +34,4 @@ class CommentForm(BlogModelFormBase):
 
     class Meta:
         model = Comment
+        exclude = ('post',)

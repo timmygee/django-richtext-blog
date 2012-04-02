@@ -22,8 +22,25 @@
     {% if form.errors %}
       <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
     {% endif %}
-    {{ form.as_table }}
-    <input type="submit" value="Submit Comment" />
+    <ul class="form-fields">
+      {% for field in form %}
+	<li class="{{ field.css_classes }}">
+	  <div class="field-label">
+	    <label for="id_{{ field.name }}">{{ field.label }}</label>:
+	    {{ field.errors }}
+	    <p class="page-help">
+	      {{ field.help_text }}
+	    </p>
+	  </div>
+	  <div class="field-input">
+	    {{ field }}
+	  </div>
+	</li>
+      {% endfor %}
+    </ul>
+    <div class="form-button">
+      <input type="submit" value="Submit Comment" />
+    </div>
     {% csrf_token %}
   </form>
 </div>
