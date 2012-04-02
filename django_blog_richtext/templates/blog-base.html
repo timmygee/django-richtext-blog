@@ -4,6 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ STATIC_URL }}blog-style.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
     {% block javascript %}
     {% endblock %}
 
@@ -22,26 +23,15 @@
     <div id="site-wrapper">
       <div id="header">
 	{% block header %}
+	  <div id="django-blog-richtext-default-header">
+	    <h1>Django Blog Richtext</h1>
+	    <p>Feel free to customise! :)</p>
+	  </div>
 	{% endblock %}
       </div>
 
       <table id="main">
 	<tr>
-	  <!-- left sidebar -->
-	  <td id="left-sidebar">
-	    {% block left-sidebar-content %}
-	      <div class="sidebar-items">
-
-		<div class="sidebar-item">
-		  <div class="sidebar-item-header">
-		  </div>
-		  <div class="sidebar-item-content">
-		  </div>
-		</div>
-	      </div>
-	    {% endblock %}
-	  </td>
-
 	  <!-- main content area -->
 	  <td id="content-wrapper">
 	    {% if messages %}

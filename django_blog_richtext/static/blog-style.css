@@ -1,28 +1,121 @@
 /* main stylesheet */
 
+/* tag rules */
 body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
+    margin: 0;
+    background-color: #119;
 }
 
 table {
     border-collapse: collapse;
+    border-spacing: 0;
 }
 
+td {
+    padding: 0;
+}
+
+/* generic css rules */
+
+.text-right {
+    text-align: right;
+}
+
+.float-right {
+    float: right;
+}
+
+/* main page elements */
+
 #site-wrapper {
-    width: 1000px;
-    margin: 0 auto;
+    margin: 20px auto 0 auto;
+    width: 800px;
+}
+
+#content-wrapper {
+    background-color: #FFF;
+    padding: 2em 1em 2em 1em;
+    width: 800px;
 }
 
 #content {
-    width: 800px;
-    overflow: hidden;
 }    
+
+#django-blog-richtext-default-header {
+    height: 100px;
+    background-color: #555;
+    color: #FFF;
+    text-align: center;
+    padding-top: 1em;
+}
+
+#footer {
+    margin-bottom: 60px;
+}
+
+/* post styles */
+.post {
+    margin-bottom: 4em;
+}
+
+.post h1 {
+    font-family: 'Lucida Console', Monaco;
+    font-size: 2em;
+    margin: 0 0 0.5em 0;
+}
+
+.post hr {
+    border-collapse: collapse;
+    border-top: 1px solid #888;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    padding: 0;
+}
+
+.post .title a {
+    text-decoration: none;
+    color: #888;
+}
+
+.post .title a:visited {
+    color: #888;
+}
+
+.post .comments-link {
+    float: right;
+}
+
+.post .comments-link a {
+    color: #888;
+    font-size: 14px;
+    line-height: 2em;
+}
+
+.post .comments-link a:visited {
+    color: #888;
+}
+
+.post .heading {
+    clear: both;
+}
+
+.time {
+    color: #888;
+    font-style: italic;
+}
+
+.post .title a:hover {
+    text-decoration: underline;
+}
 
 /* pagination styles */
 
 .pagination {
     text-align: center;
+    font-size: 14px;
 }
 
 .page-links ul {
@@ -33,6 +126,17 @@ table {
 
 .page-links ul li {
     display: inline;
+    letter-spacing: 4px;
+}
+
+.page-links ul li a {
+    color: #888;
+    text-decoration: none;
+}
+
+.page-links ul li a:hover,
+.page-links ul li a.active {
+    color: #FF7519;
 }
 
 /* post styles */

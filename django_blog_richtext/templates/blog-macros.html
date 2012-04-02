@@ -3,12 +3,19 @@
 {# blog_post macro. Requires that post already be a Post object and that this macro be called in a <ul> tag #}
 {% macro blog_post %}
 <li class="post">
-  <div class="time">{{ post.created }}</div>
-  <div class="title"><a href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a></div>
+  <div class="heading">
+    {% if post_list %}
+      <div class="comments-link">
+	<a href="{{ post.get_absolute_url }}">{{ post.get_number_of_comments }} comments</a>
+      </div>
+    {% endif %}
+    <div class="title"><h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1></div>
+  </div>
   {% if post.has_edits %}
-    <div class="time">Modified {{ post.modified }}</div>
+    <div class="time float-right">Last modified {{ post.modified }}</div>
   {% endif %}
-  <div class="author">{{ post.author }}</div>
+  &mdash;&nbsp;<span class="time">Posted {{ post.created }} by {{ post.author }}</span>
+  <hr />
   {% if tags %}
   <div class="tags">
     Filed under:

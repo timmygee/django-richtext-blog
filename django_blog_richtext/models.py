@@ -33,6 +33,12 @@ class Post(models.Model):
             'slug': self.slug
             })
 
+    def get_number_of_comments(self):
+        """
+        Returns a count of the number of comments
+        """
+        return Comment.objects.filter(post=self).count()
+
 class Comment(models.Model):
     """
     Defines comments that can be stored against individual posts
