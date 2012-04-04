@@ -1,4 +1,5 @@
 {% load macros %}
+{% load blog_tags %}
 
 {# blog_post macro. Requires that post already be a Post object and that this macro be called in a <ul> tag #}
 {% macro blog_post %}
@@ -27,7 +28,7 @@
   </div>
   {% endif %}
   <div class="post-content">
-    {{ post.content|safe }}
+    {{ post.content|pygmentize }}
   </div>
 </li>
 {% endmacro %}

@@ -146,3 +146,9 @@ td {
     padding: 0;
     margin: 0;
 }
+
+.highlight pre {
+    border: 1px solid #888;
+    margin: 1em 2em;
+    padding: 1em;
+}
