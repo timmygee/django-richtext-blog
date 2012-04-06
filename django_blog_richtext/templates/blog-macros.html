@@ -7,7 +7,7 @@
   <div class="heading">
     {% if post_list %}
       <div class="comments-link">
-	<a href="{{ post.get_absolute_url }}">{{ post.get_number_of_comments }} comments</a>
+	<a href="{{ post.get_absolute_url }}#comment-section">{{ post.get_number_of_comments }} comments</a>
       </div>
     {% endif %}
     <div class="title"><h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1></div>
@@ -15,7 +15,7 @@
   {% if post.has_edits %}
     <div class="time float-right">Last modified {{ post.modified }}</div>
   {% endif %}
-  &mdash;&nbsp;<span class="time">Posted {{ post.created }} by {{ post.author }}</span>
+  <span class="time">&mdash; Posted {{ post.created }} by {{ post.author }}</span>
   <hr />
   {% if tags %}
   <div class="tags">

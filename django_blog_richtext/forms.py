@@ -28,7 +28,9 @@ class CommentForm(BlogModelFormBase):
     """
     name = forms.CharField(required=False)
     email = forms.EmailField()
-    comment = forms.CharField()
+    comment = forms.CharField(
+        widget=forms.Textarea(attrs={'cols': '60', 'rows': '10' })
+        )
     verification = CaptchaField(
         help_text='Please type the letters in the image')
 

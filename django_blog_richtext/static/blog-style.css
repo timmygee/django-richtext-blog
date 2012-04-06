@@ -55,6 +55,13 @@ td {
     margin-bottom: 60px;
 }
 
+/* header styles */
+
+#header h1 a {
+    color: #FFF;
+    text-decoration: none;
+}
+
 /* post styles */
 .post {
     margin-bottom: 4em;
@@ -151,4 +158,85 @@ td {
     border: 1px solid #888;
     margin: 1em 2em;
     padding: 1em;
+}
+
+ul.form-fields {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul.form-fields li {
+  font-size: 13px;
+  clear: both;
+  min-height: 3em;
+}
+
+ul.form-fields ul.errorlist {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  color: #777;
+}
+
+ul.form-fields ul.errorlist li {
+  font-size: 11px;
+  min-height: 0;
+}
+
+ul.form-fields .field-label, 
+ul.form-fields .field-input {
+  float: left;
+  margin-bottom: 5px;
+}
+
+ul.form-fields .field-label {
+  margin-right: 5px;
+  width: 15em;
+}
+
+ul.form-fields .field-label label {
+  text-transform: capitalize;
+  float: left;
+}
+
+ul.form-fields li.required .field-label label {
+    font-weight: bold;
+}
+
+ul.form-fields li.error .field-label label {
+  color: #FF0505;
+}
+
+.field-label p.page-help {
+  margin-top: 0.5em;
+  font-size: 10px;
+}
+
+.errors {
+  color: #FF0505;
+}
+
+.form-help {
+  color: #777;
+  margin-bottom: 1em;
+}
+
+ul.errorlist {
+  margin: 1em 0;
+  font-style: italic;
+  padding-left: 2em;
+  list-style-type: none;
+}
+
+.form-button {
+  margin-bottom: 3em;
+  clear: both;
+}
+
+/* captcha field */
+
+img.captcha {
+    display: block;
+    margin-bottom: 0.5em;
 }

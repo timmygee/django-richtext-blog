@@ -2,6 +2,9 @@ from django.views.generic import list, detail, edit
 from django.views.generic.edit import BaseFormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.base import TemplateResponseMixin
+from django.contrib.auth.models import AnonymousUser
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 from django_blog_richtext.models import Post, Comment
 from django_blog_richtext.forms import CommentForm
@@ -17,7 +20,8 @@ class PostListView(list.ListView):
 class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
     """
     View for a single post
-    Combintes the functionality of ProcessFormView and DetailView
+    Combines the functionality of ProcessFormView and DetailView
+    Form functionality is for handling the submission of comments
     """
     model = Post
     context_object_name = 'post'
@@ -45,6 +49,39 @@ class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
         # defined in exit.ProcessFormView)
         context = super(PostView, self).get_context_data(**kwargs)
         context['object'] = self.object
-        context['comments'] = Comment.objects.filter(post=self.object)
+        context['comments'] = \
+            Comment.objects.filter(post=self.object).order_by('created')
         return context
+
+    def form_valid(self, form):
+        """
+        Called when form is valid. Create a new comment based on form input then
+        redirect to success url.
+        """
+        form_data = form.cleaned_data
+
+        user = self.request.user
+
+        # Auto set username as name if user logged in.
+        if not isinstance(user, AnonymousUser):
+            name = user.username
+        else:
+            name = 'Anonymous'
+            user = None
+
+        # Override name if submitted in form
+        if form_data['name']:
+            name = form_data['name']
+
+        Comment.objects.create(post=self.get_object(), name=name, auth_user=user,
+            email=form_data['email'], comment=form_data['comment'])
+
+        messages.success(self.request, 'Comment added')
+        return HttpResponseRedirect(self.get_success_url())
+        
+    def get_success_url(self):
+        """
+        Comments form processing.
+        """
+        return self.get_object().get_absolute_url()
 

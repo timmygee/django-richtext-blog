@@ -3,15 +3,18 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ STATIC_URL }}blog-style.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
-    {% block javascript %}
+
+    {% block global_javascript %}
     {% endblock %}
 
-    {% block css %}
-    <!--[if IE 7]>
-      <link rel="stylesheet" href="{{ STATIC_URL }}ie7fixes.css" />
-      <![endif]-->
+    {% block page_javascript %}
+    {% endblock %}
+
+    {% block global_css %}
+      <link rel="stylesheet" href="{{ STATIC_URL }}blog-style.css" />
+    {% endblock %}
+
+    {% block page_css %}
     {% endblock %}
 
     {% block rss %}
@@ -24,7 +27,7 @@
       <div id="header">
 	{% block header %}
 	  <div id="django-blog-richtext-default-header">
-	    <h1>Django Blog Richtext</h1>
+	    <h1><a href="/">Django Blog Richtext</a></h1>
 	    <p>Feel free to customise! :)</p>
 	  </div>
 	{% endblock %}
@@ -34,15 +37,17 @@
 	<tr>
 	  <!-- main content area -->
 	  <td id="content-wrapper">
-	    {% if messages %}
-	      <ul class="messages">
-		{% for message in messages %}
-		  <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
-		    {{ message }}
-		  </li>
-		{% endfor %}
-	      </ul>
-	    {% endif %}
+	    {% block messages_section %}
+	      {% if messages %}
+		<ul class="messages">
+		  {% for message in messages %}
+		    <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+		      {{ message }}
+		    </li>
+		  {% endfor %}
+		</ul>
+	      {% endif %}
+	    {% endblock %}
 	    <div id="content">
 	      {% block content %}
 		Content placeholder

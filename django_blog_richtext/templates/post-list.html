@@ -2,6 +2,10 @@
 {% load macros %}
 {% loadmacros blog-macros.html %}
 
+{% block page_css %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
+{% endblock %}
+
 {% block content %}
 {% usemacro blog_pagination %}
 <div id="posts">

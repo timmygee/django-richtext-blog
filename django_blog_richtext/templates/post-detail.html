@@ -2,6 +2,33 @@
 {% load macros %}
 {% loadmacros blog-macros.html %}
 
+{# Javascript (jquery) to allow the page to be auto-scrolled to the form
+   or comments section if there are user messages there #}
+{% block page_javascript %}
+  <script type="text/javascript" src="{{ STATIC_URL }}jquery-1.7.2.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        var jumpTo = $('#jump-to-me');
+
+        if (jumpTo) {
+            offset = jumpTo.offset();
+            if (offset) {
+                window.scrollTo(0, offset.top);
+            }
+        }
+    });
+  </script>
+{% endblock %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
+{% endblock %}
+
+{# clear default messages section since on this template we want them
+    appearing at the bottom of the page near the comments #}
+{% block messages_section %}
+{% endblock %}
+
 {% block content %}
 <div id="posts">
   <ul>
@@ -9,6 +36,18 @@
   </ul>
 </div>
 <div id="comments">
+  <a name="comment-section">&nbsp;</a>
+
+  {% if messages %}
+    <ul class="messages" id="jump-to-me">
+      {% for message in messages %}
+	<li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+	  {{ message }}
+	</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   <ul>
     {% for comment in comments %}
     <li class="comment">
@@ -20,8 +59,15 @@
   </ul>
   <form method="POST" action="">
     {% if form.errors %}
-      <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
+      <div class="errors" id="jump-to-me">
+        {% if form.non_field_errors %}
+          Please correct the following: {{ form.non_field_errors }}
+        {% else %}
+          <p>There was a problem with your submission. Please correct the errors below.</p>
+        {% endif %}
+      </div>
     {% endif %}
+
     <ul class="form-fields">
       {% for field in form %}
 	<li class="{{ field.css_classes }}">
