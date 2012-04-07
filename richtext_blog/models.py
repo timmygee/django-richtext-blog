@@ -41,6 +41,13 @@ class Post(models.Model):
         """
         return Comment.objects.filter(post=self).count()
 
+    def tag_list(self):
+        """
+        Returns a list of any associated tags
+        """
+        return u', '.join([tag.name for tag in self.tags.all()])
+        
+
 class Comment(models.Model):
     """
     Defines comments that can be stored against individual posts
@@ -60,10 +67,10 @@ class Comment(models.Model):
         Indicates whether this comment was made by an authenticated user and
         the name field is unpopulated
         """
-        return self.auth_user and (self.name == self.auth_user.username)
+        return self.auth_user and (self.author == self.auth_user.username)
 
     def __unicode__(self):
-        return u'Authed user: %s, name: %s' % (self.auth_user, self.name)
+        return u'Authed user: %s, name: %s' % (self.auth_user, self.author)
 
 class Tag(models.Model):
     """
@@ -75,7 +82,7 @@ class Tag(models.Model):
         help_text='Leave this field blank to auto-generate slug from title')
 
     def __unicode__(self):
-        return self.tag_name
+        return self.name
 
     @models.permalink
     def get_absolute_url(self):

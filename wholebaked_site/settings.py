@@ -162,7 +162,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
     # Custom context processors
-    'richtext_blog.context_processors.site'
+    'richtext_blog.context_processors.blog_global'
     )
 
 # TinyMCE settings

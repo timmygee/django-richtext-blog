@@ -53,5 +53,6 @@ def pygmentize(value):
                 lexer = lexers.guess_lexer(code_string)
             except ValueError:
                 lexer = lexers.TextLexer()
-        code_tag.replaceWith(BeautifulSoup(highlight(code_string, lexer, formatters.HtmlFormatter())))
+        code_tag.replaceWith(BeautifulSoup(highlight(code_string, lexer,
+            formatters.HtmlFormatter())))
     return mark_safe(soup)

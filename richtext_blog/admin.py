@@ -12,9 +12,10 @@ class CommentInline(admin.TabularInline):
 
 class PostAdmin(admin.ModelAdmin):
     form = PostFormAdmin
+    fields = ('title', 'slug', 'tags', 'content')
     search_fields = ('title',)
-    list_display = ('title', 'author', 'created', 'modified')
-    list_filter = ('author__username',)
+    list_display = ('title', 'author', 'created', 'modified', 'tag_list')
+    list_filter = ('author__username', 'tags')
     inlines = (CommentInline,)
 
     def save_model(self, request, obj, form, change):

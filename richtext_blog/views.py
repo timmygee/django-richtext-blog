@@ -3,19 +3,73 @@ from django.views.generic.edit import BaseFormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.base import TemplateResponseMixin
 from django.contrib.auth.models import AnonymousUser
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
-from richtext_blog.models import Post, Comment
+from richtext_blog.models import Post, Comment, Tag
 from richtext_blog.forms import CommentForm
 
 class PostListView(list.ListView):
     """
     View functionality for a list of posts
+    If year and/or month are passed in as initialisation kwargs then the
+    queryset will be filtered based on that criteria
     """
     # Define paginate_by at the url level. See urls.py
     context_object_name = 'post_list'
-    queryset = Post.objects.all().order_by('-created')
+
+    def get_queryset(self):
+        """
+        Return posts based on a particular year and month. 
+        """
+        if 'month' in self.kwargs:
+            objects = Post.objects.filter(created__year=self.kwargs['year'],
+                created__month=self.kwargs['month'])
+        elif 'year' in self.kwargs:
+            objects = Post.objects.filter(created__year=self.kwargs['year'])
+        else:
+            objects = Post.objects.all()
+        if not objects:
+            raise Http404
+        return objects
+
+    def get_context_data(self, **kwargs):
+        """
+        Pass up the time values. Also pass up that the view display mode is
+        'monthly'
+        """
+        context = super(PostListView, self).get_context_data(**kwargs)
+        if self.kwargs:
+            context.update(self.kwargs)
+            if 'month' in self.kwargs:
+                context['display_mode'] = 'monthly'
+            else:
+                context['display_mode'] = 'yearly'
+        return context
+
+class TagView(PostListView):
+    """
+    Extend the PostListView for the functionality behind the tag_view.html
+    template. Actual template to use is defined in accompanying urls.py
+    """
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        """
+        Return the queryset of posts for the currently viewed tag
+        """
+        return Post.objects.filter(
+            tags__slug=self.kwargs['slug']).order_by('-created')
+
+    def get_context_data(self, **kwargs):
+        """
+        Pass the tag object into the request object as well
+        """
+        context = super(TagView, self).get_context_data(**kwargs)
+        context['tag'] = get_object_or_404(Tag, slug=self.kwargs['slug'])
+            
+        return context
 
 class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
     """
@@ -70,11 +124,12 @@ class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
             user = None
 
         # Override name if submitted in form
-        if form_data['name']:
-            name = form_data['name']
+        if form_data['author']:
+            name = form_data['author']
 
-        Comment.objects.create(post=self.get_object(), name=name, auth_user=user,
-            email=form_data['email'], comment=form_data['comment'])
+        Comment.objects.create(post=self.get_object(), author=name,
+            auth_user=user, email=form_data['email'],
+            comment=form_data['comment'])
 
         messages.success(self.request, 'Comment added')
         return HttpResponseRedirect(self.get_success_url())
@@ -85,5 +140,3 @@ class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
         """
         return self.get_object().get_absolute_url()
 
-class TagView(detail.DetailView):
-    pass

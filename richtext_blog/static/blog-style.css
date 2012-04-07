@@ -1,6 +1,6 @@
 /* main stylesheet */
 
-/* tag rules */
+/* html tag rules */
 body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -29,26 +29,29 @@ td {
 
 /* main page elements */
 
+#django-blog-richtext-default-header {
+    height: 100px;
+    background-color: #888;
+    color: #FFF;
+    text-align: center;
+    padding-top: 1em;
+}
+
 #site-wrapper {
     margin: 20px auto 0 auto;
-    width: 800px;
+    width: 900px;
 }
 
 #content-wrapper {
     background-color: #FFF;
     padding: 2em 1em 2em 1em;
-    width: 800px;
+    width: 700px;
 }
 
-#content {
-}    
-
-#django-blog-richtext-default-header {
-    height: 100px;
-    background-color: #555;
-    color: #FFF;
-    text-align: center;
-    padding-top: 1em;
+#right-sidebar {
+    background-color: #EEE;
+    width: 200px;
+    vertical-align: top;
 }
 
 #footer {
@@ -60,6 +63,39 @@ td {
 #header h1 a {
     color: #FFF;
     text-decoration: none;
+}
+
+/* sidebar styles */
+
+.sidebar-items {
+    padding: 1em;
+}
+
+.sidebar-item-header {
+    color: #555;
+    font-size: 14px;
+}
+
+/* notification messages */
+
+ul.messages {
+    list-style-type: none;
+    margin: 1em;
+    padding: 0;
+}
+
+ul.messages li {
+    padding: 0.5em;
+}
+
+ul.messages li.success {
+    background-color: #FF944D;
+    border: 1px solid #804A26;
+}
+
+ul.messages li.error {
+    background-color: #FF4747;
+    border: 1px solid #661C1C;
 }
 
 /* post styles */
@@ -269,4 +305,22 @@ ul.comments {
 
 .comment .highlight {
     color: #F93;
+}
+
+/* tags */
+
+.tags ul li {
+    display: inline;
+    padding-right: 0.5em;
+    color: #888;
+}
+
+.tags ul li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #339;
+}
+
+.tags ul li a:hover {
+    color: #8585C2;
 }
