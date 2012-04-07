@@ -35,28 +35,33 @@
     {% usemacro blog_post %}
   </ul>
 </div>
-<div id="comments">
+<hr />
+{% if messages %}
+  <ul class="messages" id="jump-to-me">
+    {% for message in messages %}
+      <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+	{{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+<div id="comments-section">
   <a name="comment-section">&nbsp;</a>
-
-  {% if messages %}
-    <ul class="messages" id="jump-to-me">
-      {% for message in messages %}
-	<li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
-	  {{ message }}
+  <h3>{{ comments|length }} Comments</h3>
+  {% if comments %}
+    <ul class="comments">
+      {% for comment in comments %}
+	<li class="comment">
+	  <h4 class="{% if comment.highlighted %}name highlight{% else %}name{% endif %}">
+	    {% if comment.author %}{{ comment.author }}{% else %}Anonymous{% endif %}
+	  </h4>
+	  <div class="created">{{ comment.created }}</div>
+	  <div class="message">{{ comment.comment }}</span>
 	</li>
       {% endfor %}
     </ul>
   {% endif %}
-
-  <ul>
-    {% for comment in comments %}
-    <li class="comment">
-      <span class="name">{% if comment.name %}{{ comment.name }}{% else %}Anonymous{% endif %}</span>
-      <span class="created">{{ comment.created }}</span>
-      <div class="message">{{ comment.comment }}</span>
-    </li>
-    {% endfor %}
-  </ul>
+  <h3>Leave a comment</h3>
   <form method="POST" action="">
     {% if form.errors %}
       <div class="errors" id="jump-to-me">

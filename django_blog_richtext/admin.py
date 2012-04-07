@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Post, Comment
+from models import Post, Comment, Tag
 from forms import PostFormAdmin
 
 class CommentInline(admin.TabularInline):
@@ -41,3 +41,8 @@ class PostAdmin(admin.ModelAdmin):
             instance.save()
 
 admin.site.register(Post, PostAdmin)
+
+class TagAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Tag, TagAdmin)

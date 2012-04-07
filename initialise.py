@@ -21,3 +21,5 @@ obj = User.objects.create(
     is_superuser=True, is_staff=True, first_name='Tim', last_name='Godfrey')
 obj.set_password('testing')
 obj.save()
+
+# Set up some default tags

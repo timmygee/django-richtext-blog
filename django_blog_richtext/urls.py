@@ -6,7 +6,7 @@ from django.contrib import admin
 
 from filebrowser.sites import site
 
-from django_blog_richtext.views import PostListView, PostView
+from django_blog_richtext.views import PostListView, PostView, TagView
 
 admin.autodiscover()
 
@@ -16,13 +16,15 @@ urlpatterns = patterns('',
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^captcha/', include('captcha.urls')),
-    # django_blog_richtext definitions
+    # richtext_blog definitions
     url(r'^posts/$', PostListView.as_view(
-            paginate_by=10,
-            template_name='post-list.html'
+        paginate_by=10,
+        template_name='post-list.html'
         )),
     url(r'^(?P<year>[\d]{4})/(?P<month>[\d]{2})/(?P<slug>[-\w]+)/$',
         PostView.as_view(template_name='post-detail.html'), name='post'),
+    url(r'^tags/(?P<slug>[-\w]+)/$', TagView.as_view(
+        template_name='tag_view.html'), name='tag'),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Uncomment the next line to enable the admin:

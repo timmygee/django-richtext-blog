@@ -8,12 +8,14 @@ class Post(models.Model):
     Defines a blog post
     """
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', max_length=150,
+    slug = AutoSlugField(populate_from='title', max_length=50,
         editable=settings.SLUGS_EDITABLE, unique=True, blank=True,
         help_text='Leave this field blank to auto-generate slug from title')
     author = models.ForeignKey(User, related_name='post_author', editable=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    tags = models.ManyToManyField('Tag', related_name='tag_posts', blank=True,
+        null=True)
     content = models.TextField(blank=True)
 
     def has_edits(self):
@@ -43,8 +45,8 @@ class Comment(models.Model):
     """
     Defines comments that can be stored against individual posts
     """
-    post = models.ForeignKey(Post, related_name='comment_post')
-    name = models.CharField(max_length=150, blank=True)
+    post = models.ForeignKey(Post, related_name='post_comments')
+    author = models.CharField(max_length=150, blank=True, verbose_name='name')
     auth_user = models.ForeignKey(User, related_name='comment_user',
         editable=False, null=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -52,3 +54,29 @@ class Comment(models.Model):
         help_text='Your email address is for authentication reasons only and '
             'will not be visible on this site')
     comment = models.TextField(help_text='Enter your comment here')
+
+    def highlighted(self):
+        """
+        Indicates whether this comment was made by an authenticated user and
+        the name field is unpopulated
+        """
+        return self.auth_user and (self.name == self.auth_user.username)
+
+    def __unicode__(self):
+        return u'Authed user: %s, name: %s' % (self.auth_user, self.name)
+
+class Tag(models.Model):
+    """
+    Defines a keyword categorisation for posts
+    """
+    name = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='name', max_length=50,
+        editable=settings.SLUGS_EDITABLE, unique=True, blank=True,
+        help_text='Leave this field blank to auto-generate slug from title')
+
+    def __unicode__(self):
+        return self.tag_name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('tag', (), {'slug': self.slug})

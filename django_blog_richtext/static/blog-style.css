@@ -240,3 +240,33 @@ img.captcha {
     display: block;
     margin-bottom: 0.5em;
 }
+
+/* comments */
+
+#comments-section h3 {
+    margin: 1.5em 0 1em 0;
+}
+
+ul.comments {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comment .name {
+    font-weight: bold;
+    color: #36F;
+}
+
+.comment .created {
+    float: right;
+    font-style: italic;
+}
+
+.comment .message {
+    padding: 0 1em;
+}
+
+.comment .highlight {
+    color: #F93;
+}

@@ -85,3 +85,5 @@ class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
         """
         return self.get_object().get_absolute_url()
 
+class TagView(detail.DetailView):
+    pass

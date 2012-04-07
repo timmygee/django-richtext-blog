@@ -26,7 +26,7 @@ class CommentForm(BlogModelFormBase):
     """
     Form for the creation of a new comment
     """
-    name = forms.CharField(required=False)
+    author = forms.CharField(required=False)
     email = forms.EmailField()
     comment = forms.CharField(
         widget=forms.Textarea(attrs={'cols': '60', 'rows': '10' })
