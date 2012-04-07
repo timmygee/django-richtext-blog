@@ -125,7 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'django_blog_richtext',
+    'richtext_blog',
     'captcha'
 )
 
@@ -162,7 +162,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
     # Custom context processors
-    'django_blog_richtext.context_processors.site'
+    'richtext_blog.context_processors.site'
     )
 
 # TinyMCE settings
@@ -194,7 +194,7 @@ FILEBROWSER_DIRECTORY = 'uploads/'
 
 # Grappelli settings
 GRAPPELLI_INDEX_DASHBOARD = \
-    'django_blog_richtext.custom_dashboard.CustomIndexDashboard'
+    'richtext_blog.custom_dashboard.CustomIndexDashboard'
 
-# django_blog_richtext settings
+# richtext_blog settings
 SLUGS_EDITABLE = True

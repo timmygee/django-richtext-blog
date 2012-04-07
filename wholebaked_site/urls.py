@@ -6,7 +6,7 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'', include('django_blog_richtext.urls')),  
+    url(r'', include('richtext_blog.urls')),  
     # Examples:
     # url(r'^$', 'wholebaked_site.views.home', name='home'),
     # url(r'^wholebaked_site/', include('wholebaked_site.foo.urls')),

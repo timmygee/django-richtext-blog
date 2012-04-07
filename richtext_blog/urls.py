@@ -6,7 +6,7 @@ from django.contrib import admin
 
 from filebrowser.sites import site
 
-from django_blog_richtext.views import PostListView, PostView, TagView
+from richtext_blog.views import PostListView, PostView, TagView
 
 admin.autodiscover()
 

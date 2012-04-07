@@ -6,8 +6,8 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from django_blog_richtext.models import Post, Comment
-from django_blog_richtext.forms import CommentForm
+from richtext_blog.models import Post, Comment
+from richtext_blog.forms import CommentForm
 
 class PostListView(list.ListView):
     """
