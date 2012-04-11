@@ -1,7 +1,15 @@
 {% load macros %}
 {% load blog_extras %}
 
-{# blog_post macro. Requires that post already be a Post object and that this macro be called in a <ul> tag #}
+{# blog_back_to_all macro. Defines a link that goes back to the page with all posts #}
+{% macro blog_back_to_all %}
+<div class="blog-back-to-all">
+  &larr;&nbsp;<a href="{% url all_posts %}">Back to all posts</a>
+</div>
+{% endmacro %}
+
+{# blog_post macro. Requires that post already be a Post object and that this macro be
+   called in a <ul> tag #}
 {% macro blog_post %}
 <li class="post">
   <div class="heading">
@@ -33,7 +41,9 @@
 </li>
 {% endmacro %}
 
-{# blog_pagination macro. Requires that it be used on a ListView template, that or standard pagination context objects are available. post_list should also be defined as the queryset/list of objects to display on the page #}
+{# blog_pagination macro. Requires that it be used on a ListView template, that or standard
+   pagination context objects are available. post_list should also be defined as the
+   queryset/list of objects to display on the page #}
 {% macro blog_pagination %}
 {% if is_paginated %}
   <div class="pagination">
@@ -60,7 +70,17 @@
 {% endif %}
 {% endmacro %}
 
-{# blog_archive_links macro. Provides a list of links to the monthly post archives #}
+{# blog_archive_links macro. Provides a list of links to the monthly post archives
+   Requires that ARCHIVE_LINKS be defined in the context (currently implemented in 
+   context_processors.py) #}
 {% macro blog_archive_links %}
-  
+<div class="blog-archive-links">
+  <ul>
+    <li class="blog-archive-all-posts"><a href="{% url all_posts %}">All posts</a></li>
+    {% for link in ARCHIVE_LINKS %}
+      <li><a href="{{ link.link }}">{{ link.link_text }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
 {% endmacro %}
+

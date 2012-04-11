@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^posts/$', PostListView.as_view(
         paginate_by=10,
         template_name='post-list.html',
-        )),
+        ), name='all_posts'),
     url(r'^(?P<year>[\d]{4})/$', PostListView.as_view(
         paginate_by=10,
         template_name='post-list.html',
@@ -21,6 +21,6 @@ urlpatterns = patterns('',
     url(r'^(?P<year>[\d]{4})/(?P<month>[\d]{2})/(?P<slug>[-\w]+)/$',
         PostView.as_view(template_name='post-detail.html'), name='post'),
     url(r'^tags/(?P<slug>[-\w]+)/$', TagView.as_view(
-        template_name='tag_view.html'), name='tag'),
+        template_name='tag-view.html'), name='tag'),
     )
 

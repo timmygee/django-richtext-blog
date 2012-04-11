@@ -17,6 +17,11 @@ td {
     padding: 0;
 }
 
+pre {
+    width: 600px;
+    overflow: auto;
+}
+
 /* generic css rules */
 
 .text-right {
@@ -45,12 +50,12 @@ td {
 #content-wrapper {
     background-color: #FFF;
     padding: 2em 1em 2em 1em;
-    width: 700px;
+    width: 720px;
 }
 
 #right-sidebar {
     background-color: #EEE;
-    width: 200px;
+    width: 180px;
     vertical-align: top;
 }
 
@@ -63,17 +68,6 @@ td {
 #header h1 a {
     color: #FFF;
     text-decoration: none;
-}
-
-/* sidebar styles */
-
-.sidebar-items {
-    padding: 1em;
-}
-
-.sidebar-item-header {
-    color: #555;
-    font-size: 14px;
 }
 
 /* notification messages */
@@ -180,6 +174,21 @@ ul.messages li.error {
 .page-links ul li a:hover,
 .page-links ul li a.active {
     color: #FF7519;
+}
+
+/* post nav link style */
+
+.blog-back-to-all {
+    margin-bottom: 1em;
+}
+
+.blog-back-to-all a {
+    text-decoration: none;
+    color: #888;
+}
+
+.blog-back-to-all a:hover {
+    text-decoration: underline;
 }
 
 /* post styles */
@@ -289,14 +298,25 @@ ul.comments {
     padding: 0;
 }
 
+.comment {
+    margin-bottom: 1em;
+}
+
+.comment h4 {
+    display: inline;
+}
+
 .comment .name {
     font-weight: bold;
     color: #36F;
 }
 
 .comment .created {
-    float: right;
     font-style: italic;
+}
+
+.comment .title {
+    margin-bottom: 0.5em;
 }
 
 .comment .message {
@@ -323,4 +343,44 @@ ul.comments {
 
 .tags ul li a:hover {
     color: #8585C2;
+}
+
+/* sidebar styles */
+
+.sidebar-items {
+    padding: 1em;
+}
+
+.sidebar-item {
+    margin-bottom: 1em;
+}
+
+.sidebar-item-header {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 1em;
+}
+
+/* sidebar blog archive styles */
+.blog-archive-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.blog-archive-links ul li {
+    margin-bottom: 0.5em;
+}
+
+.blog-archive-links ul li.blog-archive-all-posts {
+    margin-bottom: 1em;
+}
+
+.blog-archive-links ul li a {
+    text-decoration: none;
+    color: #36F;
+}
+
+.blog-archive-links ul li a:hover {
+    text-decoration: underline;
 }

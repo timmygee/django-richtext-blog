@@ -30,12 +30,14 @@
 {% endblock %}
 
 {% block content %}
+{% usemacro blog_back_to_all %}
 <div id="posts">
   <ul>
     {% usemacro blog_post %}
   </ul>
 </div>
 <hr />
+{% usemacro blog_back_to_all %}
 {% if messages %}
   <ul class="messages" id="jump-to-me">
     {% for message in messages %}
@@ -52,11 +54,14 @@
     <ul class="comments">
       {% for comment in comments %}
 	<li class="comment">
-	  <h4 class="{% if comment.highlighted %}name highlight{% else %}name{% endif %}">
-	    {% if comment.author %}{{ comment.author }}{% else %}Anonymous{% endif %}
-	  </h4>
-	  <div class="created">{{ comment.created }}</div>
-	  <div class="message">{{ comment.comment }}</span>
+	  <div class="title">
+	    <h4 class="{% if comment.highlighted %}name highlight{% else %}name{% endif %}">
+	      {% if comment.author %}{{ comment.author }}{% else %}Anonymous{% endif %}
+	    </h4>
+	    &mdash;
+	    <span class="created">{{ comment.created }}</span>
+	  </div>
+	  <div class="message">{{ comment.comment }}</div>
 	</li>
       {% endfor %}
     </ul>

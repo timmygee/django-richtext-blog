@@ -37,21 +37,23 @@ class PostListView(list.ListView):
     def get_context_data(self, **kwargs):
         """
         Pass up the time values. Also pass up that the view display mode is
-        'monthly'
+        'monthly' or yearly if that is the case'
         """
         context = super(PostListView, self).get_context_data(**kwargs)
         if self.kwargs:
             context.update(self.kwargs)
             if 'month' in self.kwargs:
                 context['display_mode'] = 'monthly'
-            else:
+            elif 'year' in self.kwargs:
                 context['display_mode'] = 'yearly'
         return context
 
 class TagView(PostListView):
     """
-    Extend the PostListView for the functionality behind the tag_view.html
-    template. Actual template to use is defined in accompanying urls.py
+    Extend the PostListView for the functionality behind the displaying of posts
+    by tag. Actual template to use is defined in accompanying urls.py (should
+    use the same as the template for PostListView, or at least use similar
+    functionality)
     """
     context_object_name = 'post_list'
 

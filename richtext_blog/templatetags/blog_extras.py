@@ -1,4 +1,5 @@
 import re
+import calendar
 
 from django import template
 from django.template.defaultfilters import stringfilter
@@ -8,6 +9,20 @@ from pygments import lexers, formatters, highlight
 from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
 
 register = template.Library()
+
+@register.filter
+def month_name(value):
+    """
+    Returns the name of the month for the number passed in. Number must be
+    between 1 and 12
+    """
+    try:
+        value = int(value)
+    except ValueError:
+        return ''
+    if value < 1 or value > 12:
+        return ''
+    return calendar.month_name[value]
 
 @register.filter
 @stringfilter

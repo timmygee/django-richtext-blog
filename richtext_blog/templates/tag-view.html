@@ -1,23 +1,14 @@
 {% extends 'blog-base.html' %}
 {% load macros %}
 {% loadmacros blog-macros.html %}
-{% load blog_extras %}
 
 {% block page_css %}
   <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
 {% endblock %}
 
 {% block content %}
-
-{% if display_mode %}
-  {% if display_mode == 'monthly' %}
-    <h1 class="post-list-title">Posts for {{ month|month_name }} {{ year }}</h1>
-  {% endif %}
-  {% if display_mode == 'yearly' %}
-    <h1 class="post-list-title">Posts for {{ year }}</h1>
-  {% endif %}
 {% usemacro blog_back_to_all %}
-{% endif %}
+<h1 class="post-list-title">Posts tagged with "{{ tag.name }}"</h1>
 {% usemacro blog_pagination %}
 <div id="posts">
   <ul>
@@ -27,7 +18,5 @@
   </ul>
 </div>
 {% usemacro blog_pagination %}
-{% if display_mode %}
-  {% usemacro blog_back_to_all %}
-{% endif %}
+{% usemacro blog_back_to_all %}
 {% endblock %}
