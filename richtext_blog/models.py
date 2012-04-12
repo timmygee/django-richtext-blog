@@ -41,7 +41,7 @@ class Post(models.Model):
         """
         return Comment.objects.filter(post=self).count()
 
-    def tag_list(self):
+    def tag_list_str(self):
         """
         Returns a list of any associated tags
         """

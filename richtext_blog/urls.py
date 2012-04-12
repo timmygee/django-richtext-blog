@@ -3,13 +3,14 @@ try:
 except ImportError:
     from django.conf.urls.defaults import patterns, include, url
 
-from richtext_blog.views import PostListView, PostView, TagView
+from richtext_blog.views import (PostListView, PostView, TagView,
+    AllPostsRssFeed, AllPostsAtomFeed)
 
 urlpatterns = patterns('',
     url(r'^posts/$', PostListView.as_view(
         paginate_by=10,
         template_name='post-list.html',
-        ), name='all_posts'),
+        ), name='posts_all'),
     url(r'^(?P<year>[\d]{4})/$', PostListView.as_view(
         paginate_by=10,
         template_name='post-list.html',
@@ -22,5 +23,7 @@ urlpatterns = patterns('',
         PostView.as_view(template_name='post-detail.html'), name='post'),
     url(r'^tags/(?P<slug>[-\w]+)/$', TagView.as_view(
         template_name='tag-view.html'), name='tag'),
+    url(r'^rss/$', AllPostsRssFeed(), name='posts_all_rss'),
+    url(r'^atom/$', AllPostsAtomFeed(), name='posts_all_atom')
     )
 

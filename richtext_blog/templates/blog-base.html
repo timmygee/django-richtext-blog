@@ -5,23 +5,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
-
+    <title>{% block title %}{{ SITE.name }}{% endblock %}</title>
     {% block global_javascript %}
     {% endblock %}
-
     {% block page_javascript %}
     {% endblock %}
-
     {% block global_css %}
       <link rel="stylesheet" href="{{ STATIC_URL }}blog-style.css" />
     {% endblock %}
-
     {% block page_css %}
     {% endblock %}
-
     {% block rss %}
-    <link rel="alternate" type="application/rss+xml" title="{{ SITE_NAME }} rss feed" href="">
+      <link rel="alternate" type="application/rss+xml" title="{{ SITE.name }} RSS Feed" href="{% url posts_all_rss %}" />
+      <link rel="alternate" type="application/atom+xml" title="{{ SITE.name }} Atom Feed" href="{% url posts_all_atom %}" />
     {% endblock %}
   </head>
 

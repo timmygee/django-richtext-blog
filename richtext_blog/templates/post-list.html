@@ -7,8 +7,20 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
 {% endblock %}
 
-{% block content %}
+{% block title %}
+{% if display_mode %}
+  {% if display_mode == 'monthly' %}
+    {{ SITE.name }} &mdash; Posts for {{ month|month_name }} {{ year }}
+  {% endif %}
+  {% if display_mode == 'yearly' %}
+    {{ SITE.name }} &mdash; Posts for {{ year }}
+  {% endif %}
+{% else %}
+  {{ SITE.name }} &mdash; All Posts
+{% endif %}
+{% endblock %}
 
+{% block content %}
 {% if display_mode %}
   {% if display_mode == 'monthly' %}
     <h1 class="post-list-title">Posts for {{ month|month_name }} {{ year }}</h1>

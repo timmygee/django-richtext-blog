@@ -1,14 +1,80 @@
 from django.views.generic import list, detail, edit
-from django.views.generic.edit import BaseFormView
-from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.base import TemplateResponseMixin
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.contrib.syndication import views
+from django.utils import feedgenerator
+from django.contrib.sites.models import Site
+from django.conf import settings
+from django.core import urlresolvers
 
 from richtext_blog.models import Post, Comment, Tag
 from richtext_blog.forms import CommentForm
+
+class AllPostsRssFeed(views.Feed):
+    """
+    Implement a simple rss feed view for all posts
+    """
+    # Requires that description_template (the template file reference) be
+    # defined at the urls.py level
+
+     # Define a feed type.
+     # This is the default for the Feed class but I've put it in here for
+     # reference! Other types in django.utils.feedgenerator can be used.
+    feed_type = feedgenerator.Rss201rev2Feed
+
+    # Define title according to site URL
+    site = Site.objects.get(pk=settings.SITE_ID)
+    title = u'%s - All Posts' % site.name
+
+    def link(self):
+        """
+        Define the link field for the feed
+        """
+        return urlresolvers.reverse('posts_all_rss')
+
+    # Define the feed description
+    description = settings.SITE_DESCRIPTION
+
+    # Define the items in the feed
+    def items(self):
+        """
+        Returns the latest posts, limited to the last 5
+        """
+        return Post.objects.all().order_by('-created')[:5]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.content
+
+    def item_link(self, item):
+        return item.get_absolute_url()
+
+    def item_author_name(self, item):
+        return item.author.username
+
+    def item_categories(self, item):
+        return item.tags.all()
+
+    def item_pubdate(self, item):
+        return item.created
+
+class AllPostsAtomFeed(AllPostsRssFeed):
+    """
+    Inherit most traits from the all posts RSS feed above. Redefine required
+    attributes to implement an Atom feed this time
+    """
+    feed_type = feedgenerator.Atom1Feed
+    subtitle = AllPostsRssFeed.description
+
+    def link(self):
+        """
+        Define the link field for the feed
+        """
+        return urlresolvers.reverse('posts_all_atom')
 
 class PostListView(list.ListView):
     """
@@ -32,7 +98,7 @@ class PostListView(list.ListView):
             objects = Post.objects.all()
         if not objects:
             raise Http404
-        return objects
+        return objects.order_by('-created')
 
     def get_context_data(self, **kwargs):
         """
@@ -48,12 +114,12 @@ class PostListView(list.ListView):
                 context['display_mode'] = 'yearly'
         return context
 
-class TagView(PostListView):
+class TagView(list.ListView):
     """
-    Extend the PostListView for the functionality behind the displaying of posts
-    by tag. Actual template to use is defined in accompanying urls.py (should
-    use the same as the template for PostListView, or at least use similar
-    functionality)
+    Extend the list.ListView for the functionality behind the displaying of
+    posts by tag. Actual template to use is defined in accompanying urls.py
+    (should use the same as the template for PostListView, or at least use
+    similar functionality)
     """
     context_object_name = 'post_list'
 

@@ -24,6 +24,10 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
 {% endblock %}
 
+{% block title %}
+{{ SITE.name }} &mdash; {{ post.title }}
+{% endblock %}
+
 {# clear default messages section since on this template we want them
     appearing at the bottom of the page near the comments #}
 {% block messages_section %}

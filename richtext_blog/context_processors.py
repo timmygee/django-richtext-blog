@@ -35,6 +35,6 @@ def blog_global(request):
                 })
     return {
         'SITE': current_site,
-        'ARCHIVE_LINKS': archive_links
+        'ARCHIVE_LINKS': sorted(archive_links, reverse=True)
         }
     

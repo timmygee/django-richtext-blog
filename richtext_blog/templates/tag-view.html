@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
 {% endblock %}
 
+{% block title %}
+{{ SITE.name }} &mdash; Posts tagged with "{{ tag.name }}"
+{% endblock %}
+
 {% block content %}
 {% usemacro blog_back_to_all %}
 <h1 class="post-list-title">Posts tagged with "{{ tag.name }}"</h1>

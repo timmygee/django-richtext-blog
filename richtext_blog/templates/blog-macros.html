@@ -4,7 +4,7 @@
 {# blog_back_to_all macro. Defines a link that goes back to the page with all posts #}
 {% macro blog_back_to_all %}
 <div class="blog-back-to-all">
-  &larr;&nbsp;<a href="{% url all_posts %}">Back to all posts</a>
+  &larr;&nbsp;<a href="{% url posts_all %}">Back to all posts</a>
 </div>
 {% endmacro %}
 
@@ -76,7 +76,7 @@
 {% macro blog_archive_links %}
 <div class="blog-archive-links">
   <ul>
-    <li class="blog-archive-all-posts"><a href="{% url all_posts %}">All posts</a></li>
+    <li class="blog-archive-all-posts"><a href="{% url posts_all %}">All posts</a></li>
     {% for link in ARCHIVE_LINKS %}
       <li><a href="{{ link.link }}">{{ link.link_text }}</a></li>
     {% endfor %}
