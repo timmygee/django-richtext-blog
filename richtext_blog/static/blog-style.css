@@ -376,7 +376,7 @@ ul.comments {
     color: #36F;
 }
 
-.blog-archive-links ul li a:hover {
+.sidebar-item-content ul li a:hover {
     text-decoration: underline;
 }
 
