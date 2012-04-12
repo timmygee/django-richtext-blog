@@ -1,4 +1,4 @@
-from django.views.generic import list, detail, edit
+from django.views.generic import list, detail, edit, base
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
@@ -11,6 +11,15 @@ from django.core import urlresolvers
 
 from richtext_blog.models import Post, Comment, Tag
 from richtext_blog.forms import CommentForm
+
+class RedirectToPostsView(base.RedirectView):
+    """
+    A view that redirects to the all posts page
+    """
+    permanent = True
+    
+    def get_redirect_url(self, **kwargs):
+        return urlresolvers.reverse('posts_all')
 
 class AllPostsRssFeed(views.Feed):
     """

@@ -361,26 +361,46 @@ ul.comments {
     margin-bottom: 1em;
 }
 
-/* sidebar blog archive styles */
-.blog-archive-links ul {
+.sidebar-item-content ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-.blog-archive-links ul li {
+.sidebar-item-content ul li {
     margin-bottom: 0.5em;
 }
 
-.blog-archive-links ul li.blog-archive-all-posts {
-    margin-bottom: 1em;
-}
-
-.blog-archive-links ul li a {
+.sidebar-item-content ul li a {
     text-decoration: none;
     color: #36F;
 }
 
 .blog-archive-links ul li a:hover {
+    text-decoration: underline;
+}
+
+/* sidebar blog archive links styles */
+
+.blog-archive-links ul li.blog-archive-all-posts {
+    margin-bottom: 1em;
+}
+
+/* sidebar blog feed links styles */
+
+.blog-feed-links ul li {
+    clear: both;
+    height: 24px;
+}
+
+.blog-feed-links ul li a {
+    display: block;
+    line-height: 24px;
+    vertical-align: middle;
+    float: left;
+    margin-right: 0.5em;
+}
+
+.blog-feed-links ul li:hover a.text-link {
     text-decoration: underline;
 }

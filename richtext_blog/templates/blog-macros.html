@@ -84,3 +84,39 @@
 </div>
 {% endmacro %}
 
+{# blog_feed_links macro. Provides a list of links to the RSS and Atom feeds provided
+   by the blog. #}
+{% macro blog_feed_links %}
+<div class="blog-feed-links">
+  <ul>
+    <li>
+      <a href="{% url posts_all_rss %}">
+	<img src="{{ STATIC_URL }}rss_24x24.png" alt="RSS" />
+      </a>
+      <a class="text-link" href="{% url posts_all_rss %}">RSS Feed</a>
+    </li>
+    <li>
+      <a href="{% url posts_all_atom %}">
+	<img src="{{ STATIC_URL }}rss_24x24.png" alt="Atom" />
+      </a>
+      <a class="text-link" href="{% url posts_all_atom %}">Atom Feed</a>
+    </li>
+  </ul>
+</div>
+{% endmacro %}
+
+{# blog_tag_links macro. Provides a list of links to the posts by tag pages along with
+   the number of posts that use that tag. Requires that TAG_COUNTS be defined in the
+   context (currently implemented in context_processors.py) #}
+{% macro blog_tag_links %}
+<div class="blog-tag-links">
+  <ul>
+    {% for tag in TAG_COUNTS %}
+    <li>
+      <a href="{% url posts_tag tag.slug %}">{{ tag.name }} ({{ tag.count }})</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endmacro %}
+
