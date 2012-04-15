@@ -95,4 +95,4 @@ class Tag(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('tag', (), {'slug': self.slug})
+        return ('posts_tag', (), {'slug': self.slug})
