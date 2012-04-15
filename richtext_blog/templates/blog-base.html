@@ -59,12 +59,23 @@
 	    <td id="right-sidebar">
 	      {% block right-sidebar-content %}
 		<div class="sidebar-items">
-		  <div class="sidebar-item">
+		  <div class="sidebar-item recent-posts">
 		    <div class="sidebar-item-header">
-		      Archive
+		      Recent Posts
 		    </div>
 		    <div class="sidebar-item-content">
-		      {% usemacro blog_archive_links %}
+		      {% usemacro blog_recent_posts %}
+		    </div>
+		  </div>
+		</div>
+
+		<div class="sidebar-items">
+		  <div class="sidebar-item">
+		    <div class="sidebar-item-header">
+		      Tags
+		    </div>
+		    <div class="sidebar-item-content">
+		      {% usemacro blog_tag_links %}
 		    </div>
 		  </div>
 		</div>
@@ -83,10 +94,18 @@
 		<div class="sidebar-items">
 		  <div class="sidebar-item">
 		    <div class="sidebar-item-header">
-		      Tags
+		      Archive
 		    </div>
 		    <div class="sidebar-item-content">
-		      {% usemacro blog_tag_links %}
+		      {% usemacro blog_archive_links %}
+		    </div>
+		  </div>
+		</div>
+
+		<div class="sidebar-items">
+		  <div class="sidebar-item">
+		    <div class="sidebar-item-content text-centered">
+		      <a href="http://www.djangoproject.com/"><img src="http://media.djangoproject.com/img/badges/djangopowered126x54.gif" border="0" alt="Powered by Django." title="Powered by Django." /></a>
 		    </div>
 		  </div>
 		</div>

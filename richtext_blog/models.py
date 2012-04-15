@@ -11,7 +11,8 @@ class Post(models.Model):
     slug = AutoSlugField(populate_from='title', max_length=50,
         editable=settings.SLUGS_EDITABLE, unique=True, blank=True,
         help_text='Leave this field blank to auto-generate slug from title')
-    author = models.ForeignKey(User, related_name='post_author', editable=False)
+    author = models.ForeignKey(User, related_name='post_author',
+        editable=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField('Tag', related_name='tag_posts', blank=True,

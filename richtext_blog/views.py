@@ -186,8 +186,8 @@ class PostView(edit.ProcessFormView, detail.DetailView, edit.FormMixin):
 
     def form_valid(self, form):
         """
-        Called when form is valid. Create a new comment based on form input then
-        redirect to success url.
+        Called when form is valid. Create a new comment based on form input
+        then redirect to success url.
         """
         form_data = form.cleaned_data
 

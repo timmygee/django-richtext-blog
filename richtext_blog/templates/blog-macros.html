@@ -77,7 +77,7 @@
 <div class="blog-archive-links">
   <ul>
     <li class="blog-archive-all-posts"><a href="{% url posts_all %}">All posts</a></li>
-    {% for link in ARCHIVE_LINKS %}
+    {% for link in BLOG_ARCHIVE_LINKS %}
       <li><a href="{{ link.link }}">{{ link.link_text }}</a></li>
     {% endfor %}
   </ul>
@@ -111,9 +111,24 @@
 {% macro blog_tag_links %}
 <div class="blog-tag-links">
   <ul>
-    {% for tag in TAG_COUNTS %}
+    {% for tag in BLOG_TAG_COUNTS %}
     <li>
       <a href="{% url posts_tag tag.slug %}">{{ tag.name }} ({{ tag.count }})</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endmacro %}
+
+{# blog_recent_posts macro. Provides a list of most recent posts as links.
+   Requires that BLOG_RECENT_POSTS be defined in the context (currently
+   implemented in context_processors.py) #}
+{% macro blog_recent_posts %}
+<div class="blog-recent-posts">
+  <ul>
+    {% for link in BLOG_RECENT_POSTS %}
+    <li>
+      <a href="{{ link.link }}" title="{{ link.date }}">{{ link.title }}</a>
     </li>
     {% endfor %}
   </ul>

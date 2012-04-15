@@ -24,6 +24,10 @@ pre {
 
 /* generic css rules */
 
+.text-centered {
+    text-align: center;
+}
+
 .text-right {
     text-align: right;
 }
@@ -403,4 +407,11 @@ ul.comments {
 
 .blog-feed-links ul li:hover a.text-link {
     text-decoration: underline;
+}
+
+/* sidebar recent posts style */
+
+.recent-posts ul {
+    list-style-type: disc;
+    list-style-position: inside;
 }

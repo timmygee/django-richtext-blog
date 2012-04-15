@@ -23,7 +23,8 @@ def blog_global(request):
         if date.year < now.year:
             if date.year not in seen_years:
                 archive_links.append({
-                    'link': reverse('posts_yearly', kwargs={'year': date.year}),
+                    'link': \
+                        reverse('posts_yearly', kwargs={'year': date.year}),
                     'link_text': date.year
                     })
                 seen_years[date.year] = None
@@ -34,14 +35,26 @@ def blog_global(request):
                 'link_text': date.strftime('%B %Y')
                 })
 
-    # Create a list of tag names, slugs and the number of posts that use the tag
-    tag_counts = [{'slug': t.slug, 'count': t.tag_posts.count(), 'name': t.name} \
-        for t in Tag.objects.all()]
+    # Create a list of tag names, slugs and the number of posts that use the
+    # tag
+    tag_counts = [{
+        'slug': t.slug,
+        'count': t.tag_posts.count(),
+        'name': t.name
+        } for t in Tag.objects.all()]
+
+    # Create a list of most recent post links (last 5)
+    recent_post_links = [{
+        'title': p.title,
+        'link': p.get_absolute_url(),
+        'date': p.created.strftime('%A %B %d, %Y')
+        } for p in Post.objects.all().order_by('-created')[:5]]
     
     return {
         'SITE': current_site,
-        'ARCHIVE_LINKS': sorted(archive_links, reverse=True),
-        'TAG_COUNTS': sorted(tag_counts, key=lambda tag: tag['count'],
-            reverse=True)
+        'BLOG_ARCHIVE_LINKS': sorted(archive_links, reverse=True),
+        'BLOG_TAG_COUNTS': sorted(tag_counts, key=lambda tag: tag['count'],
+            reverse=True),
+        'BLOG_RECENT_POSTS': recent_post_links
         }
     
