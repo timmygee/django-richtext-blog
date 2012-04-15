@@ -38,6 +38,12 @@ class Post(models.Model):
             'slug': self.slug
             })
 
+    def number_of_comments(self):
+        """
+        Alias for get_number_of_comments
+        """
+        return self.get_number_of_comments()
+
     def get_number_of_comments(self):
         """
         Returns a count of the number of comments
