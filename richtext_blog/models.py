@@ -18,6 +18,8 @@ class Post(models.Model):
     tags = models.ManyToManyField('Tag', related_name='tag_posts', blank=True,
         null=True)
     content = models.TextField(blank=True)
+    comments_closed = models.BooleanField(default=False,
+        help_text='If ticked, this post will be closed to further comments')
 
     def has_edits(self):
         """
