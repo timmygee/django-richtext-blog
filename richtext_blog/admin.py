@@ -14,7 +14,9 @@ class PostAdmin(admin.ModelAdmin):
     form = PostFormAdmin
     fields = ('title', 'slug', 'tags', 'content')
     search_fields = ('title',)
-    list_display = ('title', 'author', 'created', 'modified', 'tag_list_str')
+    list_display = ('title', 'author', 'created', 'modified',
+        'comments_closed', 'tag_list_str')
+    list_editable = ('comments_closed',)
     list_filter = ('author__username', 'tags')
     inlines = (CommentInline,)
 
