@@ -26,13 +26,14 @@ def month_name(value):
 
 @register.filter
 @stringfilter
-def pygmentize(value):
+def pygmentize(value, pre_class=''):
     """
     Expects the raw html content of a post as `value`.
     This function will look through the content for any <code> tags and update
     their contents to include css classes as per syntax highlighting according
     to pygments.
-    It will also use 
+    Can take an optional argument that dictates what css class the resulting
+    'pre' code tag will have.
     Returns the html passed in with the updated <code> tags included.
     Loosely based on:
     http://www.ofbrooklyn.com/2010/01/15/syntax-highlighting-django-using-pygments/
@@ -68,6 +69,10 @@ def pygmentize(value):
                 lexer = lexers.guess_lexer(code_string)
             except ValueError:
                 lexer = lexers.TextLexer()
-        code_tag.replaceWith(BeautifulSoup(highlight(code_string, lexer,
-            formatters.HtmlFormatter())))
+        code_soup = BeautifulSoup(highlight(code_string, lexer,
+            formatters.HtmlFormatter()))
+        if pre_class:
+            for pre_tag in code_soup('pre'):
+                pre_tag['class'] = pre_class
+        code_tag.replaceWith(code_soup)
     return mark_safe(soup)
