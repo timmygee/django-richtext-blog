@@ -3,6 +3,18 @@
 {% loadmacros richtext_blog/blog-macros.html %}
 {% load blog_extras %}
 
+{% block page_javascript %}
+  <script type="text/javascript" src="{{ STATIC_URL }}jquery-1.7.2.min.js"></script>
+  <script type="text/javascript">
+    {% usemacro blog_jquery_selecttext %}
+    $(document).ready(function() {
+       $('pre').click(function() {
+           selectText(this);
+       });
+    });
+  </script>
+{% endblock %}
+
 {% block page_css %}
   <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" />
 {% endblock %}

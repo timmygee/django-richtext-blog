@@ -135,3 +135,24 @@
 </div>
 {% endmacro %}
 
+{# blog_jquery_selectall. Jquery that should be added to an existing
+   <script type="text/javascript"> tag. Contains a function definition to
+   select all text on an element.
+   Thanks to http://jsfiddle.net/edelman/KcX6A/339/ #}
+{% macro blog_jquery_selecttext %}
+function selectText(element) {
+    var doc = document;
+    var text = element;
+    if (doc.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (window.getSelection) {
+        var selection = window.getSelection();        
+        var range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
+{% endmacro %}
