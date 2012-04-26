@@ -17,8 +17,8 @@ td {
     padding: 0;
 }
 
-pre {
-    overflow: auto;
+img {
+    border: none;
 }
 
 /* generic css rules */
@@ -50,18 +50,18 @@ pre {
     width: 900px;
 }
 
-#content-wrapper {
-    background-color: #FFF;
-    width: 720px;
+#main {
+    width: 100%;
 }
 
-#content {
-    padding: 2em 1em 2em 1em;
+#content-wrapper {
+    background-color: #FFF;
+    padding: 2em 1em;
 }
 
 #right-sidebar {
     background-color: #EEE;
-    width: 180px;
+    width: 200px;
     vertical-align: top;
 }
 
@@ -161,10 +161,15 @@ ul.messages li.error {
 }
 
 .highlight {
-    width: 600px;
-    padding: 1em;
+    width: 630px;
     border: 1px solid #888;
     margin: 1em auto;
+}
+
+.highlight pre {
+    overflow: auto;
+    width: 600px;
+    margin: 15px auto;
 }
 
 /* pagination styles */
@@ -365,7 +370,7 @@ ul.comments {
 /* sidebar styles */
 
 .sidebar-items {
-    padding: 1em;
+    padding: 15px;
 }
 
 .sidebar-item {

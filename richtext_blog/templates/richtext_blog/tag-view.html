@@ -11,16 +11,18 @@
 {% endblock %}
 
 {% block content %}
-{% usemacro blog_back_to_all %}
-<div class="post-list-title">Posts tagged with "{{ tag.name }}"</div>
-{% usemacro blog_pagination %}
-<div id="posts">
-  <ul>
-    {% for post in post_list %}
-      {% usemacro blog_post %}
-    {% endfor %}
-  </ul>
-</div>
-{% usemacro blog_pagination %}
-{% usemacro blog_back_to_all %}
+  <div id="content">
+    {% usemacro blog_back_to_all %}
+    <div class="post-list-title">Posts tagged with "{{ tag.name }}"</div>
+    {% usemacro blog_pagination %}
+    <div id="posts">
+      <ul>
+	{% for post in post_list %}
+	  {% usemacro blog_post %}
+	{% endfor %}
+      </ul>
+    </div>
+    {% usemacro blog_pagination %}
+    {% usemacro blog_back_to_all %}
+  </div>
 {% endblock %}

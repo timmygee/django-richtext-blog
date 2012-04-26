@@ -39,78 +39,80 @@
 {% endblock %}
 
 {% block content %}
-{% usemacro blog_back_to_all %}
-<div id="posts">
-  <ul>
-    {% usemacro blog_post %}
-  </ul>
-</div>
-<hr />
-{% usemacro blog_back_to_all %}
-{% if messages %}
-  <ul class="messages" id="jump-to-me">
-    {% for message in messages %}
-      <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
-	{{ message }}
-      </li>
-    {% endfor %}
-  </ul>
-{% endif %}
-<div id="comments-section">
-  <a name="comment-section">&nbsp;</a>
-  <h3>{{ comments|length }} Comments</h3>
-  {% if comments %}
-    <ul class="comments">
-      {% for comment in comments %}
-	<li class="comment">
-	  <div class="title">
-	    <h4 class="{% if comment.show_user_registered %}name user-registered{% else %}name{% endif %}">
-	      {% if comment.author %}{{ comment.author }}{% else %}Anonymous{% endif %}
-	    </h4>
-	    &mdash;
-	    <span class="created">{{ comment.created }}</span>
-	  </div>
-	  <div class="message">{{ comment.comment }}</div>
-	</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-  {% if post.comments_closed %}
-    <h3>Comments are closed</h3>
-  {% else %}
-    <h3>Leave a comment</h3>
-    <form method="POST" action="">
-      {% if form.errors %}
-	<div class="errors" id="jump-to-me">
-	  {% if form.non_field_errors %}
-            Please correct the following: {{ form.non_field_errors }}
-          {% else %}
-            <p>There was a problem with your submission. Please correct the errors below.</p>
-          {% endif %}
-	</div>
-      {% endif %}
-      
-      <ul class="form-fields">
-	{% for field in form %}
-	  <li class="{{ field.css_classes }}">
-	    <div class="field-label">
-	      <label for="id_{{ field.name }}">{{ field.label }}</label>:
-	      {{ field.errors }}
-	      <p class="page-help">
-		{{ field.help_text }}
-	      </p>
-	    </div>
-	    <div class="field-input">
-	      {{ field }}
-	    </div>
+  <div id="content">
+    {% usemacro blog_back_to_all %}
+    <div id="posts">
+      <ul>
+	{% usemacro blog_post %}
+      </ul>
+    </div>
+    <hr />
+    {% usemacro blog_back_to_all %}
+    {% if messages %}
+      <ul class="messages" id="jump-to-me">
+	{% for message in messages %}
+	  <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+	    {{ message }}
 	  </li>
 	{% endfor %}
       </ul>
-      <div class="form-button">
-	<input type="submit" value="Submit Comment" />
-      </div>
-    {% csrf_token %}
-    </form>
-  {% endif %}
-</div>
+    {% endif %}
+    <div id="comments-section">
+      <a name="comment-section">&nbsp;</a>
+      <h3>{{ comments|length }} Comments</h3>
+      {% if comments %}
+	<ul class="comments">
+	  {% for comment in comments %}
+	    <li class="comment">
+	      <div class="title">
+		<h4 class="{% if comment.show_user_registered %}name user-registered{% else %}name{% endif %}">
+		  {% if comment.author %}{{ comment.author }}{% else %}Anonymous{% endif %}
+		</h4>
+		&mdash;
+		<span class="created">{{ comment.created }}</span>
+	      </div>
+	      <div class="message">{{ comment.comment }}</div>
+	    </li>
+	  {% endfor %}
+	</ul>
+      {% endif %}
+      {% if post.comments_closed %}
+	<h3>Comments are closed</h3>
+      {% else %}
+	<h3>Leave a comment</h3>
+	<form method="POST" action="">
+	  {% if form.errors %}
+	    <div class="errors" id="jump-to-me">
+	      {% if form.non_field_errors %}
+		Please correct the following: {{ form.non_field_errors }}
+              {% else %}
+		<p>There was a problem with your submission. Please correct the errors below.</p>
+              {% endif %}
+	    </div>
+	  {% endif %}
+	  
+	  <ul class="form-fields">
+	    {% for field in form %}
+	      <li class="{{ field.css_classes }}">
+		<div class="field-label">
+		  <label for="id_{{ field.name }}">{{ field.label }}</label>:
+		  {{ field.errors }}
+		  <p class="page-help">
+		    {{ field.help_text }}
+		  </p>
+		</div>
+		<div class="field-input">
+		  {{ field }}
+		</div>
+	      </li>
+	    {% endfor %}
+	  </ul>
+	  <div class="form-button">
+	    <input type="submit" value="Submit Comment" />
+	  </div>
+	  {% csrf_token %}
+	</form>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}

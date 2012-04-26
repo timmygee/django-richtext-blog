@@ -33,25 +33,27 @@
 {% endblock %}
 
 {% block content %}
-{% if display_mode %}
-  {% if display_mode == 'monthly' %}
-    <h1 class="post-list-title">Posts for {{ month|month_name }} {{ year }}</h1>
-  {% endif %}
-  {% if display_mode == 'yearly' %}
-    <h1 class="post-list-title">Posts for {{ year }}</h1>
-  {% endif %}
-{% usemacro blog_back_to_all %}
-{% endif %}
-{% usemacro blog_pagination %}
-<div id="posts">
-  <ul>
-    {% for post in post_list %}
-      {% usemacro blog_post %}
-    {% endfor %}
-  </ul>
-</div>
-{% usemacro blog_pagination %}
-{% if display_mode %}
-  {% usemacro blog_back_to_all %}
-{% endif %}
+  <div id="content">
+    {% if display_mode %}
+      {% if display_mode == 'monthly' %}
+	<h1 class="post-list-title">Posts for {{ month|month_name }} {{ year }}</h1>
+      {% endif %}
+      {% if display_mode == 'yearly' %}
+	<h1 class="post-list-title">Posts for {{ year }}</h1>
+      {% endif %}
+	{% usemacro blog_back_to_all %}
+      {% endif %}
+      {% usemacro blog_pagination %}
+      <div id="posts">
+	<ul>
+	  {% for post in post_list %}
+	    {% usemacro blog_post %}
+	  {% endfor %}
+	</ul>
+      </div>
+      {% usemacro blog_pagination %}
+      {% if display_mode %}
+	{% usemacro blog_back_to_all %}
+      {% endif %}
+  </div>
 {% endblock %}
