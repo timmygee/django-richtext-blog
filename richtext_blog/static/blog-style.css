@@ -18,7 +18,6 @@ td {
 }
 
 pre {
-    width: 600px;
     overflow: auto;
 }
 
@@ -53,8 +52,11 @@ pre {
 
 #content-wrapper {
     background-color: #FFF;
-    padding: 2em 1em 2em 1em;
     width: 720px;
+}
+
+#content {
+    padding: 2em 1em 2em 1em;
 }
 
 #right-sidebar {
@@ -127,12 +129,11 @@ ul.messages li.error {
 
 .post .comments-link {
     float: right;
+    vertical-align: bottom;
 }
 
 .post .comments-link a {
     color: #888;
-    font-size: 14px;
-    line-height: 2em;
 }
 
 .post .comments-link a:visited {
@@ -150,6 +151,20 @@ ul.messages li.error {
 
 .post .title a:hover {
     text-decoration: underline;
+}
+
+.post-list-title {
+    font-size: 14px;
+    margin-bottom: 1em;
+    color: #888;
+    text-align: center;
+}
+
+.highlight {
+    width: 600px;
+    padding: 1em;
+    border: 1px solid #888;
+    margin: 1em auto;
 }
 
 /* pagination styles */
@@ -201,12 +216,6 @@ ul.messages li.error {
     list-style-type: none;
     padding: 0;
     margin: 0;
-}
-
-.highlight pre {
-    border: 1px solid #888;
-    margin: 1em 2em;
-    padding: 1em;
 }
 
 ul.form-fields {
@@ -327,11 +336,15 @@ ul.comments {
     padding: 0 1em;
 }
 
-.comment .highlight {
+.comment .user-registered {
     color: #F93;
 }
 
 /* tags */
+
+.tags {
+    font-size: 12px;
+}
 
 .tags ul li {
     display: inline;

@@ -71,7 +71,7 @@ class Comment(models.Model):
             'will not be visible on this site')
     comment = models.TextField(help_text='Enter your comment here')
 
-    def highlighted(self):
+    def show_user_registered(self):
         """
         Indicates whether this comment was made by an authenticated user and
         the name field is unpopulated

@@ -64,7 +64,7 @@
       {% for comment in comments %}
 	<li class="comment">
 	  <div class="title">
-	    <h4 class="{% if comment.highlighted %}name highlight{% else %}name{% endif %}">
+	    <h4 class="{% if comment.show_user_registered %}name user-registered{% else %}name{% endif %}">
 	      {% if comment.author %}{{ comment.author }}{% else %}Anonymous{% endif %}
 	    </h4>
 	    &mdash;

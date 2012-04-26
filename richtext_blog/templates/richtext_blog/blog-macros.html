@@ -13,28 +13,32 @@
 {% macro blog_post %}
 <li class="post">
   <div class="heading">
-    {% if post_list %}
-      <div class="comments-link">
-	<a href="{{ post.get_absolute_url }}#comment-section">{{ post.get_number_of_comments }} comments</a>
-      </div>
-    {% endif %}
     <div class="title"><h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1></div>
   </div>
   {% if post.has_edits %}
     <div class="time float-right">Last modified {{ post.modified }}</div>
   {% endif %}
-  <span class="time">&mdash; Posted {{ post.created }} by {{ post.author }}</span>
+  <span class="time">Posted {{ post.created }} by {{ post.author }}</span>
   <hr />
-  {% if post.tags %}
   <div class="tags">
+      <div class="comments-link">
+	{% if post_list %}
+	  <a href="{{ post.get_absolute_url }}#comment-section">{{ post.get_number_of_comments }} comments</a>
+	{% else %}{# We're on a single post page #}
+	  {% if post.get_number_of_comments %}
+	    <a href="{{ post.get_absolute_url }}#comment-section">View comments</a>
+	  {% endif %}
+	{% endif %}
+      </div>
+  {% if post.tags %}
     <ul>
       <li class="not-tag">Filed under:</li>
       {% for tag in post.tags.all %}
         <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
       {% endfor %}
     </ul>
-  </div>
   {% endif %}
+  </div>
   <div class="post-content">
     {{ post.content|pygmentize }}
   </div>
