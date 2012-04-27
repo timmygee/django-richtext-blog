@@ -40,14 +40,14 @@
 
 {% block content %}
   <div id="content">
-    {% usemacro blog_back_to_all %}
     <div id="posts">
+      {% usemacro blog_back_to_all %}
       <ul>
 	{% usemacro blog_post %}
       </ul>
+      {% usemacro blog_back_to_all %}
     </div>
     <hr />
-    {% usemacro blog_back_to_all %}
     {% if messages %}
       <ul class="messages" id="jump-to-me">
 	{% for message in messages %}

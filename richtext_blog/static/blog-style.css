@@ -35,6 +35,15 @@ img {
     float: right;
 }
 
+.nav-link a {
+    color: #888;
+    text-decoration: none;
+}
+
+.nav-link a:hover {
+    text-decoration: underline;
+}
+
 /* main page elements */
 
 #django-blog-richtext-default-header {
@@ -57,6 +66,7 @@ img {
 #content-wrapper {
     background-color: #FFF;
     padding: 2em 1em;
+    vertical-align: top;
 }
 
 #right-sidebar {
@@ -202,17 +212,8 @@ ul.messages li.error {
 
 /* post nav link style */
 
-.blog-back-to-all {
+#posts .nav-link {
     margin-bottom: 1em;
-}
-
-.blog-back-to-all a {
-    text-decoration: none;
-    color: #888;
-}
-
-.blog-back-to-all a:hover {
-    text-decoration: underline;
 }
 
 /* post styles */
