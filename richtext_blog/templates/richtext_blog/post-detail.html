@@ -58,7 +58,7 @@
       </ul>
     {% endif %}
     <div id="comments-section">
-      <a name="comment-section">&nbsp;</a>
+      <a name="comment-section"></a>
       <h3>{{ comments|length }} Comments</h3>
       {% if comments %}
 	<ul class="comments">
@@ -82,13 +82,15 @@
 	<h3>Leave a comment</h3>
 	<form method="POST" action="">
 	  {% if form.errors %}
-	    <div class="errors" id="jump-to-me">
-	      {% if form.non_field_errors %}
-		Please correct the following: {{ form.non_field_errors }}
-              {% else %}
-		<p>There was a problem with your submission. Please correct the errors below.</p>
-              {% endif %}
-	    </div>
+	    <ul class="errors" id="jump-to-me">
+	      <li>
+		{% if form.non_field_errors %}
+		  Please correct the following: {{ form.non_field_errors }}
+		{% else %}
+		  There was a problem with your submission. Please correct the errors below.
+		{% endif %}
+	      </li>
+	    </ul>
 	  {% endif %}
 	  
 	  <ul class="form-fields">
