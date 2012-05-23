@@ -42,19 +42,20 @@ def pygmentize(value, pre_class=''):
     
     for code_tag in soup.findAll('code'):
         # Firstly strip out any markup TinyMCE added to the code.
-        # Typically it will add a <br /> to the end of each line. Here we will
-        # prettify the contents of the code tag which will bring the <br />
-        # tags on to their own line and make the unwanted html bits a little
-        # more predictable to find.
+        # Typically it will add a <br /> to the end of each line and replace
+        # spaces with &nbsp; sequences. Here we will prettify the contents of
+        # the code tag which will bring the <br /> tags on to their own line
+        # and make the unwanted html bits a little more predictable to find.
         # They can then be removed. As well as this we will replace &nbsp;
         # sequences with spaces.
         keep_lines = []
         for line in code_tag.prettify().splitlines():
             if line.startswith('<br />'):
                 continue
-            keep_lines.append(line)
+            keep_lines.append(line.replace('&nbsp;', ' '))
         code_tag_string = '\n'.join(keep_lines)
-        code_string = BeautifulSoup(code_tag_string,
+        code_string = BeautifulSoup(
+            code_tag_string,
             convertEntities=BeautifulSoup.HTML_ENTITIES
             ).findAll('code')[0].string
         # Check that the tag has a class attribute. If so interpret that as the
