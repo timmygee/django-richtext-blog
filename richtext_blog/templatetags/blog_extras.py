@@ -29,53 +29,53 @@ def month_name(value):
 def pygmentize(value, pre_class=''):
     """
     Expects the raw html content of a post as `value`.
-    This function will look through the content for any <code> tags and update
+    This function will look through the content for any <pre> tags and update
     their contents to include css classes as per syntax highlighting according
     to pygments.
     Can take an optional argument that dictates what css class the resulting
-    'pre' code tag will have.
-    Returns the html passed in with the updated <code> tags included.
+    'pre' pre tag will have.
+    Returns the html passed in with the updated <pre> tags included.
     Loosely based on:
     http://www.ofbrooklyn.com/2010/01/15/syntax-highlighting-django-using-pygments/
     """
     soup = BeautifulSoup(value)
     
-    for code_tag in soup.findAll('code'):
-        # Firstly strip out any markup TinyMCE added to the code.
+    for pre_tag in soup.findAll('pre'):
+        # Firstly strip out any markup TinyMCE added to the pre.
         # Typically it will add a <br /> to the end of each line and replace
         # spaces with &nbsp; sequences. Here we will prettify the contents of
-        # the code tag which will bring the <br /> tags on to their own line
+        # the pre tag which will bring the <br /> tags on to their own line
         # and make the unwanted html bits a little more predictable to find.
         # They can then be removed. As well as this we will replace &nbsp;
         # sequences with spaces.
         keep_lines = []
-        for line in code_tag.prettify().splitlines():
+        for line in pre_tag.prettify().splitlines():
             if line.startswith('<br />'):
                 continue
             keep_lines.append(line.replace('&nbsp;', ' '))
-        code_tag_string = '\n'.join(keep_lines)
-        code_string = BeautifulSoup(
-            code_tag_string,
+        pre_tag_string = '\n'.join(keep_lines)
+        pre_string = BeautifulSoup(
+            pre_tag_string,
             convertEntities=BeautifulSoup.HTML_ENTITIES
-            ).findAll('code')[0].string
+            ).findAll('pre')[0].string
         # Check that the tag has a class attribute. If so interpret that as the
-        # language of the code.
+        # language of the code contained within the pre tag.
         try:
-            code_tag_class = code_tag['class']
+            pre_tag_class = pre_tag['class']
         except KeyError:
-            code_tag_class = ''
-        if code_tag_class:
-            lexer = lexers.get_lexer_by_name(code_tag_class)
+            pre_tag_class = ''
+        if pre_tag_class:
+            lexer = lexers.get_lexer_by_name(pre_tag_class)
         else:
             # Try and guess the lexer to use
             try:
-                lexer = lexers.guess_lexer(code_string)
+                lexer = lexers.guess_lexer(pre_string)
             except ValueError:
                 lexer = lexers.TextLexer()
-        code_soup = BeautifulSoup(highlight(code_string, lexer,
+        pre_soup = BeautifulSoup(highlight(pre_string, lexer,
             formatters.HtmlFormatter()))
         if pre_class:
-            for pre_tag in code_soup('pre'):
+            for pre_tag in pre_soup('pre'):
                 pre_tag['class'] = pre_class
-        code_tag.replaceWith(code_soup)
+        pre_tag.replaceWith(pre_soup)
     return mark_safe(soup)
