@@ -1,0 +1,2 @@
+include *.txt
+recursive-include richtext_blog *py *.html *.css *.js *.png
