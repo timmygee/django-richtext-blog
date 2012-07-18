@@ -10,7 +10,7 @@ Features
 * Support for post tagging
 * Support for comments in posts
 * Code syntax highlighting with pygments
-* Comment spam prevention through integration with djamgo-simple-captcha
+* Comment spam prevention through integration with django-simple-captcha
 * Atom and RSS feed support
 * Templates included to provide examples of how django-richtext-blog can be
   used
