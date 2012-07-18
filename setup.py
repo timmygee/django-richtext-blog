@@ -26,12 +26,12 @@ setup(
         'BeautifulSoup'
         ],
     url='https://github.com/timmygee/django-richtext-blog',
-    license='BSD licence, see LICENCE.TXT',
+    license='BSD licence, see LICENCE.txt',
     description='A django app that implements a blog with the features we''ve '
         'grown accustomed to. Features: Rich text editing with TinyMCE; Full '
         'image upload support; Tags; Comments; Spam prevention; Atom/RSS '
         'feeds; Example templates; Code syntax highlighting; SEO optimised '
         'urls and more.',
-    long_description=read('README.RST'),
+    long_description=read('README.rst'),
     zip_safe=False,
 )
