@@ -2,14 +2,11 @@
 Django Richtext Blog
 ====================
 
-A django app that implements a blog with the features we've grown accustomed
-to.
-
 Features
 ========
 
 * Rich text editing implemented with TinyMCE
-* Full image upload support via TimyMCE using grapelli and filebrowser modules
+* Full image upload support via TinyMCE using grapelli and filebrowser modules
 * Support for post tagging
 * Support for comments in posts
 * Code syntax highlighting with pygments
