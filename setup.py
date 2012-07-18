@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='django-richtext-blog',
-    version='0.8.4',
+    version='0.8.5',
     author=u'Tim Godfrey',
     author_email='http://www.wholebaked.com.au/contact',
     include_package_data=True,
@@ -25,7 +25,7 @@ setup(
         'pygments',
         'BeautifulSoup'
         ],
-    url='https://github.com/tum/django-richtext-blog',
+    url='https://github.com/timmygee/django-richtext-blog',
     license='BSD licence, see LICENCE.TXT',
     description='A django app that implements a blog with the features we''ve '
         'grown accustomed to. Features: Rich text editing with TinyMCE; Full '
