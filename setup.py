@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='django-richtext-blog',
-    version='0.8.3',
+    version='0.8.4',
     author=u'Tim Godfrey',
     author_email='http://www.wholebaked.com.au/contact',
     include_package_data=True,
@@ -27,10 +27,11 @@ setup(
         ],
     url='https://github.com/tum/django-richtext-blog',
     license='BSD licence, see LICENCE.TXT',
-    description='Simple blogging app that incorporates the use of the rich '
-        'text editor, TinyMCE. Supports code syntax highlighting, tags and '
-        'comments per post with captcha authentication as well as quick image '
-        'upload when editing through the use of the filebrowser module.',
+    description='A django app that implements a blog with the features we''ve '
+        'grown accustomed to. Features: Rich text editing with TinyMCE; Full '
+        'image upload support; Tags; Comments; Spam prevention; Atom/RSS '
+        'feeds; Example templates; Code syntax highlighting; SEO optimised '
+        'urls and more.',
     long_description=read('README.RST'),
     zip_safe=False,
 )
