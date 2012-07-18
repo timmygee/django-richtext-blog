@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
-from distutils.core import setup
-from setuptools import find_packages
+import os
+import codecs
+from setuptools import setup, find_packages
+
+def read(fname):
+    return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
     name='django-richtext-blog',
-    version='1.0.0',
+    version='0.8.3',
     author=u'Tim Godfrey',
     author_email='http://www.wholebaked.com.au/contact',
+    include_package_data=True,
     packages=find_packages(),
     install_requires=[
         'django==1.3',
@@ -19,12 +24,13 @@ setup(
         'django-simple-captcha',
         'pygments',
         'BeautifulSoup'
-        ]
+        ],
     url='https://github.com/tum/django-richtext-blog',
-    license='BSD licence, see LICENCE.txt',
+    license='BSD licence, see LICENCE.TXT',
     description='Simple blogging app that incorporates the use of the rich '
         'text editor, TinyMCE. Supports code syntax highlighting, tags and '
-        'comments per post amongst other things',
-    long_description=open('README.txt').read(),
-    zip_safe=True,
-    )
+        'comments per post with captcha authentication as well as quick image '
+        'upload when editing through the use of the filebrowser module.',
+    long_description=read('README.RST'),
+    zip_safe=False,
+)

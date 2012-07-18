@@ -1,2 +1,4 @@
-include *.txt
-recursive-include richtext_blog *py *.html *.css *.js *.png
+include README.RST *.TXT
+recursive-include richtext_blog *
+recursive-include richtext_blog/static *
+recursive-include richtext_blog/templates *
