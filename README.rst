@@ -254,8 +254,8 @@ that defines the format of the content. For python code simply add a
 ``class="python"`` to the ``<pre>`` tag in TinyMCE's HTML edit mode so the
 opening tag would read ``<pre class="python">``. For simple command line 
 formatting use ``class="console"``. For a full list of class names that
-can be used, check the list of filters pygments supports at
-http://pygments.org/docs/filters/ . What is listed under **Name** is what
+can be used, check the list of lexers pygments supports at
+http://pygments.org/docs/lexers/ . What is listed under **Short names** is what
 should be used as the class name.
 
 A default css stylesheet ``richtext_blog/static/blog-style.css`` is provided 
