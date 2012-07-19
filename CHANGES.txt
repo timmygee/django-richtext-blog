@@ -1,4 +1,13 @@
-0.8.4, 2012-07-18 -- Initial release
-0.8.5, 2012-07-18 -- Updated project url in setup
+0.8.5 (2012-07-18)
+==================
+
+- Updated project url in setup
+  [timmygee]
+
+0.8.4 (2012-07-18)
+==================
+
+- Initial release
+  [timmygee]
 
 
