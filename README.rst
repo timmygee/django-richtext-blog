@@ -231,7 +231,7 @@ Save the file, then it's just the matter of preparing the database::
 
     $ python myblogsite/manage.py syncdb
 
-And if all went well you should be able to run it
+And if all went well you should be able to run it::
 
     $ python myblogsite/manage.py runserver
 
