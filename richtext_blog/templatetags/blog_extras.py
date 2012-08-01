@@ -1,5 +1,6 @@
 import re
 import calendar
+import htmlentitydefs
 
 from django import template
 from django.template.defaultfilters import stringfilter
@@ -24,6 +25,33 @@ def month_name(value):
         return ''
     return calendar.month_name[value]
 
+##
+# Removes HTML or XML character references and entities from a text string.
+#
+# @param text The HTML (or XML) source text.
+# @return The plain text, as a Unicode string, if necessary.
+# Taken from http://effbot.org/zone/re-sub.htm#unescape-html
+def unescape(text):
+    def fixup(m):
+        text = m.group(0)
+        if text[:2] == "&#":
+            # character reference
+            try:
+                if text[:3] == "&#x":
+                    return unichr(int(text[3:-1], 16))
+                else:
+                    return unichr(int(text[2:-1]))
+            except ValueError:
+                pass
+        else:
+            # named entity
+            try:
+                text = unichr(htmlentitydefs.name2codepoint[text[1:-1]])
+            except KeyError:
+                pass
+        return text # leave as is
+    return re.sub("&#?\w+;", fixup, text)
+
 @register.filter
 @stringfilter
 def pygmentize(value, pre_class=''):
@@ -43,21 +71,14 @@ def pygmentize(value, pre_class=''):
     for pre_tag in soup.findAll('pre'):
         # Firstly strip out any markup TinyMCE added to the pre.
         # Typically it will add a <br /> to the end of each line and replace
-        # spaces with &nbsp; sequences. Here we will prettify the contents of
-        # the pre tag which will bring the <br /> tags on to their own line
-        # and make the unwanted html bits a little more predictable to find.
-        # They can then be removed. As well as this we will replace &nbsp;
-        # sequences with spaces.
-        keep_lines = []
-        for line in pre_tag.prettify().splitlines():
-            if line.startswith('<br />'):
-                continue
-            keep_lines.append(line.replace('&nbsp;', ' '))
-        pre_tag_string = '\n'.join(keep_lines)
-        pre_string = BeautifulSoup(
-            pre_tag_string,
-            convertEntities=BeautifulSoup.HTML_ENTITIES
-            ).findAll('pre')[0].string
+        # spaces with &nbsp; sequences.
+        pre_content_string = ''.join(str(token) for token in pre_tag.contents)
+        
+        lines = [line.replace('&nbsp;', ' ') \
+            for line in pre_content_string.split('<br />')]
+        
+        pre_content_string = unescape('\n'.join(lines))
+
         # Check that the tag has a class attribute. If so interpret that as the
         # language of the code contained within the pre tag.
         try:
@@ -69,13 +90,14 @@ def pygmentize(value, pre_class=''):
         else:
             # Try and guess the lexer to use
             try:
-                lexer = lexers.guess_lexer(pre_string)
+                lexer = lexers.guess_lexer(pre_content_string)
             except ValueError:
                 lexer = lexers.TextLexer()
-        pre_soup = BeautifulSoup(highlight(pre_string, lexer,
-            formatters.HtmlFormatter()))
+        highlighted = highlight(
+            pre_content_string, lexer, formatters.HtmlFormatter())
+        final_soup = BeautifulSoup(highlighted)
         if pre_class:
-            for pre_tag in pre_soup('pre'):
+            for pre_tag in final_soup('pre'):
                 pre_tag['class'] = pre_class
-        pre_tag.replaceWith(pre_soup)
+        pre_tag.replaceWith(final_soup)
     return mark_safe(soup)
