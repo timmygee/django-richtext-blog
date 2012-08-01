@@ -1,3 +1,9 @@
+0.8.7 (2012-xx-xx)
+==================
+
+- Made <pre> tag content parsing more robust and simplified
+  [timmygee]
+
 0.8.6 (2012-07-18)
 ==================
 

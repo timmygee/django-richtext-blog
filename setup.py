@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='django-richtext-blog',
-    version='0.8.6',
+    version='0.8.7',
     author=u'Tim Godfrey',
     author_email='http://www.wholebaked.com.au/contact',
     include_package_data=True,
