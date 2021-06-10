@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     packages=find_packages(),
     install_requires=[
-        'django==1.3',
+        'django==2.2.24',
         'django-filebrowser==3.4.2',
         'FeedParser',
         'PIL',
